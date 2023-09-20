@@ -1,0 +1,55 @@
+.notes-content {
+    margin: 28px 0;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: #fff;
+
+    .notes-list {
+        position: relative;
+        padding-left: 30px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            display: inline-block;
+            height: calc(100% - 90px);
+            top: 16px;
+            left: 0;
+            width: 2px;
+            background: #6da8b1;
+        }
+
+        .list-year {
+            font-size: 24px;
+            line-height: 40px;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                display: inline-block;
+                height: 20px;
+                top: 8px;
+                left: -39px;
+                box-sizing: border-box;
+                width: 20px;
+                border: 6px solid #f3a84f;
+                border-radius: 50%;
+                background: #fff;
+            }
+        }
+
+        .list-box-info {
+            padding-bottom: 20px;
+        }
+    }
+
+    .pager-content {
+        padding: 25px 0 15px;
+        text-align: center;
+
+        .ant-pagination {
+            text-align: center;
+        }
+    }
+}

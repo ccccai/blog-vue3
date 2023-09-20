@@ -1,0 +1,77 @@
+<template>
+    <div class="timeline-content">
+        <div class="timeline-list">
+            <div v-for="(item, index) in list"
+                 :key="index">
+                <template v-if="item.list.length">
+                    <div class="list-year">{{ item.date }}</div>
+                    <div class="list-box-info">
+                        <template v-for="(article) in item.list">
+                            <a :href="`/article?id=${article.id}`"
+                               class="list-box">
+                                <div class="list-img"
+                                     :style="{ backgroundImage: `url(${article.cover})` }" />
+                                <div class="list-desc">
+                                    <div class="desc-date">
+                                        <a-avatar size="small"
+                                                  :src="article.authorAvatar" />
+                                        <img class="date-icon"
+                                             src="@/assets/images/svg/time.svg" />
+                                        <span class="date">{{ dayjs(article.createDate).format('LL') }}</span>
+                                    </div>
+                                    <div class="desc-title">{{ article.title }}</div>
+                                    <div class="desc-subtitle">{{ article.subTitle }}</div>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="pager-content">
+            <a-pagination v-if="total"
+                          :show-total="(total: number) => `Total ${total} article`"
+                          :page-size="pageSize"
+                          :current="pageNo"
+                          :total="total"
+                          :on-change="onPageChange" />
+            <span v-else>这个作者很懒，什么都没有写~~</span>
+        </div>
+    </div>
+</template>
+<script setup lang="ts" name='TimelineList'>
+import { defineProps, type PropType } from 'vue'
+import dayjs from '@/assets/dayjs'
+import type { ArticleListProps } from '@/types'
+
+defineProps({
+    list: {
+        type: Array as PropType<ArticleListProps[]>,
+        default: []
+    },
+    total: {
+        type: Number,
+        default: 0
+    },
+    pageSize: {
+        type: Number,
+        default: 10
+    },
+    pageNo: {
+        type: Number,
+        default: 1
+    },
+    bannerUrl: {
+        type: String,
+        default: ''
+    },
+    onPageChange: {
+        type: Function,
+        default: () => { }
+    },
+})
+</script>
+<style lang="less" scope>
+@import '@/styles/timeline-list.less';
+</style>
