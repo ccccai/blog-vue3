@@ -62,7 +62,7 @@
                 <li v-for="(category, index) in  categories"
                     @click="$router.push(`/tech?category=${category?.id}`)"
                     :key="`category${index}`"
-                    :class="`category-list-item ${Number(categoryId) === Number(category?.id) ? 'active-category-item' : ''}`">
+                    :class="['category-list-item', {'active-category-item': Number(categoryId) === Number(category?.id)}]">
                     <span>{{ category?.name }}</span>
                     <span class="count">{{ category?.count }}</span>
                 </li>
@@ -80,7 +80,8 @@
                 <li v-for="(tag, index) in tags"
                     @click="$router.push(`/tech?tag=${tag?.id}`)"
                     :key="`tags${index}`"
-                    :class="`tags-list-item ${Number(tagId) === Number(tag?.id) ? 'active-tags-item' : ''}`"
+                    class="tags-list-item"
+                    :class="{'active-tags-item': Number(tagId) === Number(tag?.id)}"
                     :style="{ fontSize: getRendomFontSize(12, 20) }">
                     <span>{{ tag?.name }}</span>
                 </li>
@@ -89,33 +90,27 @@
     </a-row>
 </template>
 <script setup lang="ts" name="InfoBox">
-import { ref, type PropType, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { CountProps, ItemProps } from '@/types'
 
-defineProps({
-    nickName: {
-        type: String,
-        default: ''
-    },
-    description: {
-        type: String,
-        default: ''
-    },
-    tags: {
-        type: Array as PropType<ItemProps[]>,
-        default: []
-    },
-    categories: {
-        type: Array as PropType<ItemProps[]>,
-        default: []
-    },
-    count: {
-        type: Object as PropType<CountProps>,
-        default: {}
-    },
+const props = withDefaults(defineProps<{
+    nickName?: string,
+    description?: string,
+    tags?: ItemProps[],
+    categories?: ItemProps[],
+    count?: CountProps,
+}>(), {
+    nickName: '',
+    description: '',
+    tags: () => [],
+    categories: () => [],
+    count: () => ({
+        articles: 0,
+        tags: 0,
+        categories: 0
+    }),
 })
-
 
 const route = useRoute(),
     categoryId = ref<number>(Number(route.query?.category)),

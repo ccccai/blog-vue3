@@ -1,10 +1,10 @@
 /*
  * @Author: caishiyin
  * @Date: 2020-12-09 15:15:06
- * @LastEditTime: 2023-09-16 21:42:09
+ * @LastEditTime: 2023-09-21 17:35:51
  * @LastEditors: caishiyin
  * @Description:
- * @FilePath: /my-blog-vue3/src/assets/setting.ts
+ * @FilePath: /my-blog-vue3/src/assets/settings.ts
  */
 import homeBanneImgUrl from '../assets/images/home-banner.jpg'
 import lifeBanneImgUrl from '../assets/images/banner-life.jpg'

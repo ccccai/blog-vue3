@@ -41,36 +41,25 @@
     </div>
 </template>
 <script setup lang="ts" name='TimelineList'>
-import { defineProps, type PropType } from 'vue'
 import dayjs from '@/assets/dayjs'
 import type { ArticleListProps } from '@/types'
 
-defineProps({
-    list: {
-        type: Array as PropType<ArticleListProps[]>,
-        default: []
-    },
-    total: {
-        type: Number,
-        default: 0
-    },
-    pageSize: {
-        type: Number,
-        default: 10
-    },
-    pageNo: {
-        type: Number,
-        default: 1
-    },
-    bannerUrl: {
-        type: String,
-        default: ''
-    },
-    onPageChange: {
-        type: Function,
-        default: () => { }
-    },
+const props = withDefaults(defineProps<{
+    list?: ArticleListProps[],
+    total?: number,
+    pageSize?: number,
+    pageNo?: number,
+    bannerUrl?: string,
+    onPageChange?: Function,
+}>(), {
+    list: () => [],
+    total: 0,
+    pageSize: 10,
+    pageNo: 1,
+    bannerUrl: '',
+    onPageChange: () => {},
 })
+
 </script>
 <style lang="less" scope>
 @import '@/styles/timeline-list.less';

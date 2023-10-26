@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-16 01:27:58
- * @LastEditTime: 2023-09-21 04:27:29
+ * @LastEditTime: 2023-10-27 02:32:08
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/HeaderNav.vue
@@ -30,8 +30,9 @@
                 <div class="top-menu-nav">
                     <ul class="menu-nav-content">
                         <li v-for="(menu, index) in navList"
-                            :key="index"
-                            :class="`menu-nav-item ${activeNav === index ? 'active-nav-item' : ''}`">
+                            class="menu-nav-item"
+                            :class="{'active-nav-item': activeNav === index}"
+                            :key="index">
                             <span @click="$router.push(menu.url)">{{ menu.title_en }}</span>
                         </li>
                     </ul>
@@ -80,19 +81,16 @@
     </div>
 </template>
 <script setup lang="ts" name="HeaderNav">
-import { type PropType, defineProps, ref } from "vue"
+import { ref } from "vue"
 import type { NavProps } from '@/types'
 
-defineProps({
-    activeNav: {
-        type: Number,
-        default: -1
-    },
-    navList: {
-        type: Array as PropType<NavProps[]>
-    },
+const props = withDefaults(defineProps<{
+    activeNav?: number,
+    navList?: NavProps[],
+}>(), {
+    activeNav: -1,
+    navList: () => []
 })
-
 
 const visible = ref<boolean>(false),
     drawerStyle = {

@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-09-21 03:37:12
+ * @LastEditTime: 2023-10-27 02:17:29
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/BannerBox.vue
@@ -16,17 +16,13 @@
     </div>
 </template>
 <script setup lang="ts" name="BannerBox">
-import { defineProps } from 'vue'
 
-defineProps({
-    title: {
-        type: String,
-        default: ''
-    },
-    bannerUrl: {
-        type: String,
-        default: ''
-    },
+const props = withDefaults(defineProps<{
+    title?: string,
+    bannerUrl: string,
+}>(), {
+    title: '',
+    default: ''
 })
 </script>
 <style lang="less">

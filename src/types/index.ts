@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2020-12-10 14:53:10
- * @LastEditTime: 2023-09-21 04:54:04
+ * @LastEditTime: 2023-10-27 02:50:49
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/types/index.ts
@@ -86,17 +86,17 @@ export interface NavProps {
 }
 
 export interface ArticleProps {
-    id: number,
+    id?: number,
     type?: number
-    cover: string,
-    title: string,
-    subTitle: string,
+    cover?: string,
+    title?: string,
+    subTitle?: string,
     author?: string
     weight?: number
-    authorAvatar: string,
-    createDate: Dayjs,
-    description: string
-    tagList: Array<ItemProps>
+    authorAvatar?: string,
+    createDate?: Dayjs,
+    description?: string
+    tagList?: Array<ItemProps>
 }
 
 export interface PopFormState {

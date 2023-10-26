@@ -150,7 +150,7 @@
     </a-popconfirm>
 </template>
 <script setup lang="ts" name="PopForm">
-import { ref, reactive, defineProps, type UnwrapRef, type PropType } from 'vue'
+import { ref, reactive, type UnwrapRef, type PropType } from 'vue'
 import dayjs, { Dayjs } from 'dayjs'
 import { type UploadChangeParam, type UploadFile, message } from 'ant-design-vue'
 import type { ItemProps, PopFormState } from '@/types'
@@ -158,31 +158,21 @@ import type { ItemProps, PopFormState } from '@/types'
 interface FormState extends PopFormState {
     dateParse: Dayjs
 }
-const props = defineProps({
-    data: {
-        type: Object as PropType<PopFormState>,
-        default: {}
-    },
-    tagList: {
-        type: Array as PropType<ItemProps[]>,
-        default: []
-    },
-    categoryList: {
-        type: Array as PropType<ItemProps[]>,
-        default: []
-    },
-    openPopcon: {
-        type: Boolean,
-        default: false
-    },
-    onConfirm: {
-        type: Function,
-        default: () => { }
-    },
-    handleOpen: {
-        type: Function,
-        default: () => { }
-    },
+
+const props = withDefaults(defineProps<{
+    handleOpen?: Function,
+    onConfirm?: Function,
+    openPopcon?: boolean,
+    categoryList?: ItemProps[],
+    tagList?: ItemProps[],
+    data?: PopFormState,
+}>(), {
+    handleOpen: () => {},
+    onConfirm: () => {},
+    openPopcon: false,
+    categoryList: () => [],
+    tagList: () => [],
+    data: () => ({}),
 })
 
 const formRef = ref(),

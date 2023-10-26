@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-09-21 00:41:55
+ * @LastEditTime: 2023-09-21 17:23:12
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/router/index.ts
@@ -57,6 +57,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/Article.vue"),
         meta: {
             title: "新增文章",
+        },
+    },
+    {
+        path: "/article/config",
+        name: "Config",
+        component: () => import("@/views/Config.vue"),
+        meta: {
+            title: "配置",
         },
     },
 ]

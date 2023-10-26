@@ -71,7 +71,9 @@
 
             .toastui-editor-contents {
                 font-size: 14px;
-                font-family: CartographMonoCFMedium;
+                pre {
+                    border-radius: 4px;
+                }
             }
         }
 
@@ -138,21 +140,47 @@
                 letter-spacing: 0;
                 font-weight: 400;
                 opacity: 0.6;
-                font-size: 14px;
-                line-height: 28px;
+                font-size: 13px;
+                line-height: 1.5;
                 margin-top: 20px;
                 border: 1px dashed rgba(0, 72, 83, 0.5);
-                border-radius: 8px;
+                border-radius: 4px;
                 padding: 8px;
+                p {
+                    margin: 0;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
             }
 
-            .article-img {
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: center center;
-                height: 444px;
-                object-fit: contain;
-                display: block;
+            .article-cover {
+                height: 464px;
+                position: relative;
+                width: fit-content;
+                left: 50%;
+                transform: translateX(-50%);
+                .img-border {
+                    position: absolute;
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    border: 4px double #399394;
+                }
+                .img-top-border {
+                    border-right: 0;
+                    border-bottom: 0;
+                }
+                .img-bottom-border {
+                    right: 0;
+                    bottom: 0;
+                    border-top: 0;
+                    border-left: 0;
+                }
+                .article-img {
+                    position: relative;
+                    padding: 12px;
+                    height: 100%;
+                }
             }
         }
     }

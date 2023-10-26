@@ -42,7 +42,7 @@
                 </div>
                 <div class="md-editor-content">
                     <md-editor ref="mdEditor"
-                               :initialValue="content"
+                               :initial-value="content"
                                :height="`${contentHeight}px` || '510px'"
                                @input="handleContent" />
                 </div>
@@ -63,9 +63,18 @@
                                 <span class="date">{{ dateStr }}</span>
                             </div>
                         </div>
-                        <div v-show="data.coverUrl" class="article-img"
-                             :style="{ backgroundImage: `url(${data.coverUrl})` }" />
-                        <div class="desc-text">{{ desc }}</div>
+                        <div v-show="data.coverUrl"
+                             class="article-cover">
+                            <span class="img-border img-top-border" />
+                            <img class="article-img"
+                                 :src="data.coverUrl" />
+                            <span class="img-border img-bottom-border" />
+                        </div>
+                        <div v-show="desc"
+                             class="desc-text">
+                            <p>写在前面：</p>
+                            <span>{{ desc }}</span>
+                        </div>
                     </div>
                 </a-col>
                 <a-col :xs="24"

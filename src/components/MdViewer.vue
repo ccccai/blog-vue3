@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-19 15:03:41
- * @LastEditTime: 2023-09-21 05:24:28
+ * @LastEditTime: 2023-10-27 01:53:21
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/MdViewer.vue
@@ -10,7 +10,7 @@
     <div ref="toastuiEditorViewer"></div>
 </template>
 <script lang="ts">
-import { defineComponent, onUnmounted, onMounted, ref, reactive, getCurrentInstance } from 'vue'
+import { defineComponent, onUnmounted, onMounted, ref, reactive } from 'vue'
 import '@toast-ui/editor/dist/toastui-editor-viewer.css'
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css'
 import 'prismjs/themes/prism.css'
@@ -75,6 +75,8 @@ export default defineComponent({
                 previewStyle: props.previewStyle,
                 events: eventOptions,
             }),
+            // 声明一个 ref 来存放该元素的引用
+            // 必须和模板里的 ref 同名
             toastuiEditorViewer = ref<any>(null)
 
         editorEvents.forEach((event) => {
@@ -84,8 +86,8 @@ export default defineComponent({
         })
 
         onMounted(() => {
-            const currentInstance: any = getCurrentInstance()
-            toastuiEditorViewer.value = currentInstance.ctx.$refs.toastuiEditorViewer
+            // const currentInstance: any = getCurrentInstance()
+            // toastuiEditorViewer.value = currentInstance.ctx.$refs.toastuiEditorViewer
 
             const initOptions = { ...options, el: toastuiEditorViewer.value }
             editor.value = new Viewer(initOptions)

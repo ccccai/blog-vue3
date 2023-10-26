@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:34:13
- * @LastEditTime: 2023-09-21 04:30:15
+ * @LastEditTime: 2023-10-27 02:50:57
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/NoteItem.vue
@@ -26,15 +26,14 @@
     </a>
 </template>
 <script setup lang="ts" name='NoteItem'>
-import { type PropType, defineProps, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import dayjs from '@/assets/dayjs'
 import type { ArticleProps } from '@/types'
 
-const props = defineProps({
-    data: {
-        type: Object as PropType<ArticleProps>,
-        default: {}
-    }
+const props = withDefaults(defineProps<{
+    data?: ArticleProps,
+}>(), {
+    data: () => ({}),
 })
 const { id, cover, title, subTitle, authorAvatar, createDate, description } = toRefs(props.data)
 </script>

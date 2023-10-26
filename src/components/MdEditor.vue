@@ -2,7 +2,7 @@
     <div ref="toastuiEditor"></div>
 </template>
 <script lang="ts">
-import { defineComponent, watch, onUnmounted, onMounted, ref, reactive, getCurrentInstance } from 'vue'
+import { defineComponent, watch, onUnmounted, onMounted, ref, reactive } from 'vue'
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css'
 import 'prismjs/themes/prism.css'
@@ -46,6 +46,8 @@ export default defineComponent({
                 previewStyle: props.previewStyle,
                 events: eventOptions,
             }),
+            // 声明一个 ref 来存放该元素的引用
+            // 必须和模板里的 ref 同名
             toastuiEditor = ref<any>(null)
 
         editorEvents.forEach((event) => {
@@ -55,8 +57,8 @@ export default defineComponent({
         })
 
         onMounted(() => {
-            const currentInstance: any = getCurrentInstance()
-            toastuiEditor.value = currentInstance.ctx.$refs.toastuiEditor
+            // const currentInstance: any = getCurrentInstance()
+            // toastuiEditor.value = currentInstance.ctx.$refs.toastuiEditor
 
             const initOptions = { ...options, el: toastuiEditor.value }
             editor.value = new Editor(initOptions)
