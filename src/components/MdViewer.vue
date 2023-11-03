@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-19 15:03:41
- * @LastEditTime: 2023-10-27 01:53:21
+ * @LastEditTime: 2023-10-27 03:00:15
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/MdViewer.vue
@@ -86,9 +86,6 @@ export default defineComponent({
         })
 
         onMounted(() => {
-            // const currentInstance: any = getCurrentInstance()
-            // toastuiEditorViewer.value = currentInstance.ctx.$refs.toastuiEditorViewer
-
             const initOptions = { ...options, el: toastuiEditorViewer.value }
             editor.value = new Viewer(initOptions)
         })

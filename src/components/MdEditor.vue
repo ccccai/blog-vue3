@@ -57,9 +57,6 @@ export default defineComponent({
         })
 
         onMounted(() => {
-            // const currentInstance: any = getCurrentInstance()
-            // toastuiEditor.value = currentInstance.ctx.$refs.toastuiEditor
-
             const initOptions = { ...options, el: toastuiEditor.value }
             editor.value = new Editor(initOptions)
 
