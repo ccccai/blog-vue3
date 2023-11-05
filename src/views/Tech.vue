@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-09-21 04:29:09
+ * @LastEditTime: 2023-11-05 15:15:15
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Tech.vue
@@ -45,7 +45,7 @@ import { useRoute } from 'vue-router'
 import BannerBox from '@/components/BannerBox.vue'
 import BlogInfo from '@/components/InfoBox.vue'
 import TimelineList from '@/components/TimelineList.vue'
-import { fetchArticleList, fetchSidebarData } from '@/api'
+import { fetchTechArticleList, fetchTagList, fetchCategoryList, fetchBlogInfo } from '@/api'
 import { navList as menuList } from '@/assets/settings'
 import type { CountProps, ItemProps, ArticleListProps, IResponseData } from '@/types'
 
@@ -100,24 +100,32 @@ export default defineComponent({
             if (tagId > 0) {
                 param.tagId = tagId
             }
-            const fetchRes = await fetchArticleList(param)
-            const { resultCode, data } = fetchRes as IResponseData
-            if (Number(resultCode) === 0 && data) {
-                state.articleList = data?.list || []
-                pager.total = data?.total || 0
+            const fetchRes = await fetchTechArticleList(param)
+            if (fetchRes) {
+                state.articleList = fetchRes?.list || []
+                pager.total = fetchRes?.total || 0
             }
         }
 
-        const getSidebarData = async () => {
-            const fetchRes = await fetchSidebarData()
-            const { resultCode, data } = fetchRes as IResponseData
-            if (resultCode === 0) {
-                const info = data?.blogInfo?.length ? data.blogInfo[0] : {}
-                userInfo.nickName = info?.nickName
-                userInfo.description = info?.description
-                state.categories = data?.categories
-                state.tags = data?.tags
-                state.count = data?.count
+        const getInfo = async () => {
+            const fetchRes = await fetchBlogInfo()
+            if (fetchRes) {
+                userInfo.nickName = fetchRes?.nickName
+                userInfo.description = fetchRes?.description
+            }
+        }
+
+        const getTags = async () => {
+            const fetchRes = await fetchTagList()
+            if (fetchRes) {
+                state.tags = fetchRes
+            }
+        }
+
+        const getCategories = async () => {
+            const fetchRes = await fetchCategoryList()
+            if (fetchRes) {
+                state.categories = fetchRes
             }
         }
 
@@ -127,7 +135,9 @@ export default defineComponent({
 
         onMounted(() => {
             initData()
-            getSidebarData()
+            getTags()
+            getCategories()
+            getInfo()
         })
 
         return {

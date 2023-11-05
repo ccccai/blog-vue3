@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-09-21 04:54:29
+ * @LastEditTime: 2023-11-05 22:26:46
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -39,7 +39,7 @@
                            :lg="8"
                            :xl="8"
                            class="card-box">
-                        <a :href="`/article?id=${item.id}`">
+                        <a :href="`/article?t=tech&y=${item.year}&id=${item.id}`">
                             <a-card class="card-item">
                                 <template #cover>
                                     <div class="cover-img"
@@ -105,7 +105,7 @@
                                    :key="'card' + index"
                                    :span="24"
                                    class="card-box">
-                                <a :href="`/article?id=${item.id}`">
+                                <a :href="`/article?t=tech&y=${item.year}&id=${item.id}`">
                                     <a-card class="card-item">
                                         <template #cover>
                                             <div class="cover-img"
@@ -142,8 +142,7 @@
 </template>
 <script setup lang="ts" name="Home">
 import { reactive, ref, onMounted, toRefs } from 'vue'
-import { type IResponseData } from '@/types'
-import { fetchHomeData } from '@/api'
+import { fetchFeaturedArticleList, fetchRecentArticleList, fetchTagList, fetchCategoryList, fetchCount, fetchBlogInfo } from '@/api'
 import { navList } from "@/assets/settings"
 import BlogInfo from '@/components/InfoBox.vue'
 import dayjs from '@/assets/dayjs'
@@ -159,20 +158,20 @@ interface stateProps {
     count: CountProps
     categories: ItemProps[]
     tags: ItemProps[],
-    featuredArticles: ArticleProps[]
-    recentArticles: ArticleProps[]
+    featuredArticles?: ArticleProps[]
+    recentArticles?: ArticleProps[]
 }
 const state = reactive<stateProps>({
-    count: {
-        articles: 0,
-        tags: 0,
-        categories: 0
-    },
-    categories: [],
-    tags: [],
-    featuredArticles: [],
-    recentArticles: [],
-}),
+        count: {
+            articles: 0,
+            tags: 0,
+            categories: 0
+        },
+        categories: [],
+        tags: [],
+        featuredArticles: [],
+        recentArticles: [],
+    }),
     userInfo = reactive({
         nickName: '',
         description: '',
@@ -181,23 +180,66 @@ const state = reactive<stateProps>({
 const { count, categories, tags, featuredArticles, recentArticles } = toRefs(state)
 const { nickName, description } = toRefs(userInfo)
 
-const getHomePageData = async () => {
-    const fetchRes = await fetchHomeData()
-    const { resultCode, data } = fetchRes as IResponseData
-    if (resultCode === 0) {
-        const info = data?.blogInfo?.length ? data.blogInfo[0] : {}
-        userInfo.nickName = info?.nickName
-        userInfo.description = info?.description
-        state.categories = data?.categories
-        state.featuredArticles = data?.featuredArticles
-        state.recentArticles = data?.recentArticles
-        state.tags = data?.tags
-        state.count = data?.count
+const getInfo = async () => {
+    const fetchRes = await fetchBlogInfo()
+    if (fetchRes) {
+        userInfo.nickName = fetchRes?.nickName
+        userInfo.description = fetchRes?.description
+    }
+}
+
+const getTags = async () => {
+    const fetchRes = await fetchTagList()
+    if (fetchRes) {
+        state.tags = fetchRes
+    }
+}
+
+const getCategories = async () => {
+    const fetchRes = await fetchCategoryList()
+    if (fetchRes) {
+        state.categories = fetchRes
+    }
+}
+
+const getCount = async () => {
+    const fetchRes = await fetchCount()
+    if (fetchRes) {
+        state.count = fetchRes
+    }
+}
+
+const getFeaturedArticle = async () => {
+    const fetchRes:any = await fetchFeaturedArticleList() || []
+    if (fetchRes) {
+        state.featuredArticles = fetchRes.map((item: any) => {
+            if (item.createDate) {
+                item.year = item.createDate.split('-')[0]
+            }
+            return item
+        })
+    }
+}
+
+const getRecentArticle = async () => {
+    const fetchRes:any = await fetchRecentArticleList() || []
+    if (fetchRes) {
+        state.recentArticles = fetchRes.map((item: any) => {
+            if (item.createDate) {
+                item.year = item.createDate.split('-')[0]
+            }
+            return item
+        })
     }
 }
 
 onMounted(() => {
-    getHomePageData()
+    getTags()
+    getCategories()
+    getCount()
+    getInfo()
+    getFeaturedArticle()
+    getRecentArticle()
 })
 </script>
 <style lang="less">

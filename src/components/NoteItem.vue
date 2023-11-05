@@ -1,13 +1,13 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:34:13
- * @LastEditTime: 2023-10-27 02:50:57
+ * @LastEditTime: 2023-11-05 21:52:50
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/NoteItem.vue
 -->
 <template>
-    <a :href="`/article?id=${id}`"
+    <a :href="`/article?t=life&y=${year}&id=${id}`"
        class="note-list-box">
         <div class="list-img"
              :style="{ backgroundImage: `url(${cover})` }" />
@@ -32,8 +32,10 @@ import type { ArticleProps } from '@/types'
 
 const props = withDefaults(defineProps<{
     data?: ArticleProps,
+    year?: string,
 }>(), {
     data: () => ({}),
+    year: '',
 })
 const { id, cover, title, subTitle, authorAvatar, createDate, description } = toRefs(props.data)
 </script>

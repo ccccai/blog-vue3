@@ -8,6 +8,7 @@ import { useLoadingStore } from "@/stores"
 
 // 域名
 export const requestPath = 'http://127.0.0.1:3232'
+// export const requestPath = ''
 // 请求允许方法
 const CAN_SEND_METHOD = ['POST', 'PUT', 'PATCH', 'DELETE']
 // 当前正在请求的数量
@@ -168,6 +169,11 @@ class Http implements IHttpInterface {
 
 const { fetchHandler } = new Http()
 export { fetchHandler as default }
+
+export const fetchJSON = async (url: string) => {
+    const res = await fetch(url)
+    return res.json()
+}
 
 // 封装fetch的get请求
 export const fetchGet = ({ url, param = {}, options = {} }: IFetchParams) => {

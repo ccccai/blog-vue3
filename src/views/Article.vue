@@ -1,7 +1,7 @@
 <template>
     <div v-if="!isCreate && !data?.id"
          class="empty-content">
-        <span class="empty-tips">{{ tips || '啊哦。找不到内容~' }}</span>
+        <span class="empty-tips">{{ tips }}</span>
     </div>
     <div v-else
          class="article-content">
@@ -90,7 +90,7 @@
 </template>
 <script lang="ts">
 import { ref, toRefs, reactive, defineComponent, watch, onMounted } from 'vue'
-import { fetchArticle, fetchTagList, fetchCategoryList, updateArticle, createArticle } from '@/api'
+import { prefix, fetchArticle, fetchTagList, fetchCategoryList, updateArticle, createArticle } from '@/api'
 import { useRoute } from 'vue-router'
 import PopForm from '@/components/PopForm.vue'
 import MdViewer from '@/components/MdViewer.vue'
@@ -118,61 +118,59 @@ export default defineComponent({
             title = ref<string>(''),
             subTitle = ref<string>(''),
             desc = ref<string>(''),
-            tips = ref<string>(''),
+            tips = ref<string>('...'),
             content = ref<string>(''),
             dateStr = ref<string>(''),
             isCreate = ref<boolean>(route.path === '/article/create'),
             openPopcon = ref<boolean>(false),
             editArticleId = ref<number>(Number(route.query?.editid || 0)),
             articleId = ref<number>(Number(route.query?.id) || 0),
+            articleYear = ref<any>(route.query?.y || ''),
+            articleType = ref<any>(route.query?.t || ''),
             state = reactive<stateProps>({
                 data: {},
                 categoryList: [],
                 tagList: []
             })
 
+        console.log('articleId', articleId)
+        console.log('articleYear', articleYear)
         const getArticle = async (id: number) => {
-            const fetchRes = await fetchArticle(id)
-            const { resultCode, data } = fetchRes as IResponseData
-            if (resultCode === 0) {
+            try {
+                const fetchRes = await fetchArticle(`${prefix}article/${articleType.value}/${articleYear.value}/${id}.json`)
+
                 state.data = {
-                    id: Number(data?.id),
-                    type: data?.type,
-                    author: data?.author,
-                    date: Number(data?.groupTimestamp),
-                    tag: data?.tagIds ? data?.tagIds.split(',').map((item: any) => Number(item)) : [],
-                    category: data?.categoryId,
-                    weight: data?.weight,
-                    coverUrl: data?.cover,
-                    avatarUrl: data?.authorAvatar,
+                    id: Number(fetchRes?.id),
+                    type: fetchRes?.type,
+                    author: fetchRes?.author,
+                    date: Number(fetchRes?.groupTimestamp),
+                    tag: fetchRes?.tagIds ? fetchRes?.tagIds.split(',').map((item: any) => Number(item)) : [],
+                    category: fetchRes?.categoryId,
+                    weight: fetchRes?.weight,
+                    coverUrl: fetchRes?.cover,
+                    avatarUrl: fetchRes?.authorAvatar,
                 }
-                dateStr.value = dayjs(Number(data?.groupTimestamp)).format('LL')
-                title.value = data?.title
-                subTitle.value = data?.subTitle
-                desc.value = data?.description
-                content.value = data?.content
+                dateStr.value = dayjs(Number(fetchRes?.groupTimestamp)).format('LL')
+                title.value = fetchRes?.title
+                subTitle.value = fetchRes?.subTitle
+                desc.value = fetchRes?.description
+                content.value = fetchRes?.content
+            } catch (err: any) {
+                tips.value = '啊哦。找不到内容~'
             }
         }
 
         const getTagList = async () => {
             const fetchRes = await fetchTagList()
-            const { resultCode, data } = fetchRes as IResponseData
-            if (resultCode === 0) {
-                state.tagList = data.map((item: any) => ({
-                    label: item.name,
-                    value: item.id,
-                }))
+            if (fetchRes) {
+                state.tagList = fetchRes
             }
         }
 
         const getCategoryList = async () => {
             const fetchRes = await fetchCategoryList()
-            const { resultCode, data } = fetchRes as IResponseData
-            if (resultCode === 0) {
-                state.categoryList = data.map((item: any) => ({
-                    label: item.name,
-                    value: item.id,
-                }))
+            if (fetchRes) {
+                state.categoryList = fetchRes
             }
         }
 
@@ -226,7 +224,6 @@ export default defineComponent({
         const handleContent = (val: string) => {
             console.log(4444, val)
             if (typeof val === 'string') {
-                console.log(5555, val)
                 content.value = val
             }
         }
