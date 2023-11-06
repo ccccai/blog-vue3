@@ -7,7 +7,7 @@
                     <div class="list-year">{{ item.date }}</div>
                     <div class="list-box-info">
                         <template v-for="(article) in item.list">
-                            <a :href="`/article/tech/${item.date}/${article.id}`"
+                            <router-link :to="`/article/tech/${item.date}/${article.id}`"
                                class="list-box">
                                 <div class="list-img"
                                      :style="{ backgroundImage: `url(${article.cover})` }" />
@@ -22,7 +22,7 @@
                                     <div class="desc-title">{{ article.title }}</div>
                                     <div class="desc-subtitle">{{ article.subTitle }}</div>
                                 </div>
-                            </a>
+                            </router-link>
                         </template>
                     </div>
                 </template>

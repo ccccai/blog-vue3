@@ -1,12 +1,12 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-06 19:15:40
+ * @LastEditTime: 2023-11-06 19:43:51
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/router/index.ts
  */
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import { useLoadingStore } from "@/stores"
 
 const routes: Array<RouteRecordRaw> = [
@@ -70,7 +70,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {

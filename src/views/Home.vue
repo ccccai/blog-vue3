@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-06 19:18:02
+ * @LastEditTime: 2023-11-06 19:47:45
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -39,7 +39,7 @@
                            :lg="8"
                            :xl="8"
                            class="card-box">
-                        <a :href="`/article/tech/${item.year}/${item.id}`">
+                        <router-link :to="`/article/tech/${item.year}/${item.id}`">
                             <a-card class="card-item">
                                 <template #cover>
                                     <div class="cover-img"
@@ -50,7 +50,7 @@
                                     <template #description>{{ item.subTitle }}</template>
                                 </a-card-meta>
                             </a-card>
-                        </a>
+                        </router-link>
                     </a-col>
                 </a-row>
             </a-col>
@@ -105,7 +105,7 @@
                                    :key="'card' + index"
                                    :span="24"
                                    class="card-box">
-                                <a :href="`/article/tech/${item.year}/${item.id}`">
+                                <router-link :to="`/article/tech/${item.year}/${item.id}`">
                                     <a-card class="card-item">
                                         <template #cover>
                                             <div class="cover-img"
@@ -131,7 +131,7 @@
                                             </div>
                                         </div>
                                     </a-card>
-                                </a>
+                                </router-link>
                             </a-col>
                         </a-row>
                     </a-col>
@@ -162,16 +162,16 @@ interface stateProps {
     recentArticles?: ArticleProps[]
 }
 const state = reactive<stateProps>({
-        count: {
-            articles: 0,
-            tags: 0,
-            categories: 0
-        },
-        categories: [],
-        tags: [],
-        featuredArticles: [],
-        recentArticles: [],
-    }),
+    count: {
+        articles: 0,
+        tags: 0,
+        categories: 0
+    },
+    categories: [],
+    tags: [],
+    featuredArticles: [],
+    recentArticles: [],
+}),
     userInfo = reactive({
         nickName: '',
         description: '',
@@ -210,7 +210,7 @@ const getCount = async () => {
 }
 
 const getFeaturedArticle = async () => {
-    const fetchRes = await fetchFeaturedArticleList()
+    const fetchRes:any = await fetchFeaturedArticleList()
     if (fetchRes) {
         state.featuredArticles = fetchRes.map((item: any) => {
             if (item.createDate) {
@@ -222,7 +222,7 @@ const getFeaturedArticle = async () => {
 }
 
 const getRecentArticle = async () => {
-    const fetchRes = await fetchRecentArticleList()
+    const fetchRes:any = await fetchRecentArticleList()
     if (fetchRes) {
         state.recentArticles = fetchRes.map((item: any) => {
             if (item.createDate) {

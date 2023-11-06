@@ -21,22 +21,22 @@
             </div>
             <ul class="detail-list">
                 <li class="detail-item">
-                    <a href="/tech">
+                    <router-link to="/tech">
                         <div class="detail-item-top">ARTICLES</div>
                         <div class="detail-item-bottom">{{ count.articles || 0 }}</div>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="detail-item">
-                    <a href="/tech">
+                    <router-link to="/tech">
                         <div class="detail-item-top">TAGS</div>
                         <div class="detail-item-bottom">{{ count.tags || 0 }}</div>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="detail-item">
-                    <a href="/tech">
+                    <router-link to="/tech">
                         <div class="detail-item-top">CATEGORIES</div>
                         <div class="detail-item-bottom">{{ count.categories || 0 }}</div>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
             <ul class="third-party">
