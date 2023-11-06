@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-06 19:08:32
+ * @LastEditTime: 2023-11-06 23:55:24
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
@@ -36,9 +36,9 @@ export const fetchFeaturedArticleList = () => {
         try {
             showLoading()
             const modules = import.meta.glob([
-                    `../../public/json/article/tech/2023/1.json`,
-                    `../../public/json/article/tech/2023/6.json`,
-                    `../../public/json/article/tech/2023/7.json`,
+                    `../../public/json/article/tech/2019/2.json`,
+                    `../../public/json/article/tech/2019/1.json`,
+                    `../../public/json/article/tech/2018/1.json`,
                 ], { as: 'raw', eager: true }),
                 list: Array<any> = []
 
@@ -61,7 +61,7 @@ export const fetchRecentArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
             showLoading()
-            const modules = import.meta.glob('../../public/json/article/tech/2023/**.json', { as: 'raw', eager: true }),
+            const modules = import.meta.glob('../../public/json/article/tech/**/**.json', { as: 'raw', eager: true }),
                 list: Array<any> = []
             let index = 0
 
