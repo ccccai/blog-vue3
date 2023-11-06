@@ -1,13 +1,13 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:34:13
- * @LastEditTime: 2023-11-05 21:52:50
+ * @LastEditTime: 2023-11-06 19:16:43
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/NoteItem.vue
 -->
 <template>
-    <a :href="`/article?t=life&y=${year}&id=${id}`"
+    <a :href="`/article/life/${year}/${id}`"
        class="note-list-box">
         <div class="list-img"
              :style="{ backgroundImage: `url(${cover})` }" />

@@ -123,10 +123,10 @@ export default defineComponent({
             dateStr = ref<string>(''),
             isCreate = ref<boolean>(route.path === '/article/create'),
             openPopcon = ref<boolean>(false),
-            editArticleId = ref<number>(Number(route.query?.editid || 0)),
-            articleId = ref<number>(Number(route.query?.id) || 0),
-            articleYear = ref<any>(route.query?.y || ''),
-            articleType = ref<any>(route.query?.t || ''),
+            editArticleId = ref<number>(Number(route.params?.editid || 0)),
+            articleId = ref<number>(Number(route.params?.id) || 0),
+            articleYear = ref<any>(route.params?.year || ''),
+            articleType = ref<any>(route.params?.type || ''),
             state = reactive<stateProps>({
                 data: {},
                 categoryList: [],
@@ -230,7 +230,7 @@ export default defineComponent({
 
         // 监听路由变化
         watch(
-            () => route.query,
+            () => route.params,
             (val, oldVal) => {
                 if (val?.id !== oldVal?.id || val?.editid !== oldVal?.editid) {
                     articleId.value = Number(val?.id || 0)

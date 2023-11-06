@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-06 18:02:23
+ * @LastEditTime: 2023-11-06 19:18:02
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -39,7 +39,7 @@
                            :lg="8"
                            :xl="8"
                            class="card-box">
-                        <a :href="`/article?t=tech&y=${item.year}&id=${item.id}`">
+                        <a :href="`/article/tech/${item.year}/${item.id}`">
                             <a-card class="card-item">
                                 <template #cover>
                                     <div class="cover-img"
@@ -105,7 +105,7 @@
                                    :key="'card' + index"
                                    :span="24"
                                    class="card-box">
-                                <a :href="`/article?t=tech&y=${item.year}&id=${item.id}`">
+                                <a :href="`/article/tech/${item.year}/${item.id}`">
                                     <a-card class="card-item">
                                         <template #cover>
                                             <div class="cover-img"

@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-09-21 17:23:12
+ * @LastEditTime: 2023-11-06 19:15:40
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/router/index.ts
@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: "/article",
+        path: "/article/:type/:year/:id",
         name: "Article",
         component: () => import("@/views/Article.vue"),
         meta: {

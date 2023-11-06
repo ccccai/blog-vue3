@@ -1,13 +1,13 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-06 18:59:29
+ * @LastEditTime: 2023-11-06 19:08:32
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
  */
 
-import { fetchGet, fetchPost, fetchJSON } from './services'
+import { fetchGet, fetchPost, fetchJSON, showLoading, hideLoading } from './services'
 
 export const prefix = '/json/'
 
@@ -34,6 +34,7 @@ export const fetchArticle = async (path: string) => await fetchJSON(path)
 export const fetchFeaturedArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
+            showLoading()
             const modules = import.meta.glob([
                     `../../public/json/article/tech/2023/1.json`,
                     `../../public/json/article/tech/2023/6.json`,
@@ -47,8 +48,10 @@ export const fetchFeaturedArticleList = () => {
                 }
             }
 
+            hideLoading()
             resolve(list)
         } catch (err: any) {
+            hideLoading()
             reject(err)
         }
     })
@@ -57,6 +60,7 @@ export const fetchFeaturedArticleList = () => {
 export const fetchRecentArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
+            showLoading()
             const modules = import.meta.glob('../../public/json/article/tech/2023/**.json', { as: 'raw', eager: true }),
                 list: Array<any> = []
             let index = 0
@@ -66,13 +70,15 @@ export const fetchRecentArticleList = () => {
                 if (modules[path]) {
                     list.push(JSON.parse(modules[path]))
                 }
-                console.log(11111, list)
+                
                 if (index >= 3) {
                     break
                 }
             }
+            hideLoading()
             resolve(list)
         } catch (err: any) {
+            hideLoading()
             reject(err)
         }
     })
@@ -81,6 +87,7 @@ export const fetchRecentArticleList = () => {
 export const fetchTechArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
+            showLoading()
             const list: Array<any> = []
             let file,
                 modules = [
@@ -125,11 +132,13 @@ export const fetchTechArticleList = () => {
                     list.push(file)
                 }
             })
+            hideLoading()
             resolve({
                 total,
                 list
             })
         } catch (err: any) {
+            hideLoading()
             reject(err)
         }
     })
@@ -138,6 +147,7 @@ export const fetchTechArticleList = () => {
 export const fetchLifeArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
+            showLoading()
             const list: Array<any> = []
             let file,
                 modules = [
@@ -182,11 +192,13 @@ export const fetchLifeArticleList = () => {
                     list.push(file)
                 }
             })
+            hideLoading()
             resolve({
                 total,
                 list
             })
         } catch (err: any) {
+            hideLoading()
             reject(err)
         }
     })

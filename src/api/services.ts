@@ -25,7 +25,7 @@ type ICustomRequestError = {
 }
 
 // 显示全局loading
-function showLoading() {
+export function showLoading() {
     if (requestCount === 0 && !useLoadingStore().spinning) {
         useLoadingStore().setSpinning(true)
     }
@@ -33,7 +33,7 @@ function showLoading() {
 }
 
 // 隐藏全局loading
-function hideLoading() {
+export function hideLoading() {
     requestCount--
     if (requestCount === 0 && useLoadingStore().spinning) {
         useLoadingStore().setSpinning(false)
@@ -171,7 +171,9 @@ const { fetchHandler } = new Http()
 export { fetchHandler as default }
 
 export const fetchJSON = async (url: string) => {
+    showLoading()
     const res = await fetch(url)
+    await hideLoading()
     return res.json()
 }
 
