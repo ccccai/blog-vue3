@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-05 22:26:46
+ * @LastEditTime: 2023-11-06 18:02:23
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -210,7 +210,7 @@ const getCount = async () => {
 }
 
 const getFeaturedArticle = async () => {
-    const fetchRes:any = await fetchFeaturedArticleList() || []
+    const fetchRes = await fetchFeaturedArticleList()
     if (fetchRes) {
         state.featuredArticles = fetchRes.map((item: any) => {
             if (item.createDate) {
@@ -222,7 +222,7 @@ const getFeaturedArticle = async () => {
 }
 
 const getRecentArticle = async () => {
-    const fetchRes:any = await fetchRecentArticleList() || []
+    const fetchRes = await fetchRecentArticleList()
     if (fetchRes) {
         state.recentArticles = fetchRes.map((item: any) => {
             if (item.createDate) {
@@ -234,12 +234,12 @@ const getRecentArticle = async () => {
 }
 
 onMounted(() => {
+    getFeaturedArticle()
+    getRecentArticle()
     getTags()
     getCategories()
     getCount()
     getInfo()
-    getFeaturedArticle()
-    getRecentArticle()
 })
 </script>
 <style lang="less">

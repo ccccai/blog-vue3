@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-05 22:12:44
+ * @LastEditTime: 2023-11-06 18:59:29
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
@@ -34,16 +34,10 @@ export const fetchArticle = async (path: string) => await fetchJSON(path)
 export const fetchFeaturedArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
-            const modules = import.meta.env.DEV ?
-                import.meta.glob([
+            const modules = import.meta.glob([
                     `../../public/json/article/tech/2023/1.json`,
                     `../../public/json/article/tech/2023/6.json`,
                     `../../public/json/article/tech/2023/7.json`,
-                ], { as: 'raw', eager: true }) :
-                import.meta.glob([
-                    `/json/article/tech/2023/1.json`,
-                    `/json/article/tech/2023/2.json`,
-                    `/json/article/tech/2023/7.json`,
                 ], { as: 'raw', eager: true }),
                 list: Array<any> = []
 
@@ -63,17 +57,20 @@ export const fetchFeaturedArticleList = () => {
 export const fetchRecentArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
-            const modules = import.meta.env.DEV ? import.meta.glob(`../../public/json/article/tech/**/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/tech/2023/**.json`, { as: 'raw', eager: true }),
+            const modules = import.meta.glob('../../public/json/article/tech/2023/**.json', { as: 'raw', eager: true }),
                 list: Array<any> = []
             let index = 0
 
             for (let path in modules) {
                 index++
-                if (modules[path] && index < 4) {
+                if (modules[path]) {
                     list.push(JSON.parse(modules[path]))
                 }
+                console.log(11111, list)
+                if (index >= 3) {
+                    break
+                }
             }
-
             resolve(list)
         } catch (err: any) {
             reject(err)
@@ -89,27 +86,27 @@ export const fetchTechArticleList = () => {
                 modules = [
                     {
                         date: '2023',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/tech/2023/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/tech/2023/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/tech/2023/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2022',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/tech/2022/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/tech/2022/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/tech/2022/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2021',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/tech/2021/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/tech/2021/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/tech/2021/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2020',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/tech/2020/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/tech/2020/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/tech/2020/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2019',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/tech/2019/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/tech/2019/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/tech/2019/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2018',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/tech/2018/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/tech/2018/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/tech/2018/**.json`, { as: 'raw', eager: true })
                     },
                 ],
                 total = 0
@@ -146,27 +143,27 @@ export const fetchLifeArticleList = () => {
                 modules = [
                     {
                         date: '2023',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/life/2023/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/life/2023/**.json`, { as: 'raw', eager: true })
+                        list:import.meta.glob(`../../public/json/article/life/2023/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2022',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/life/2022/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/life/2022/**.json`, { as: 'raw', eager: true })
+                        list:import.meta.glob(`../../public/json/article/life/2022/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2021',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/life/2021/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/life/2021/**.json`, { as: 'raw', eager: true })
+                        list:import.meta.glob(`../../public/json/article/life/2021/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2020',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/life/2020/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/life/2020/**.json`, { as: 'raw', eager: true })
+                        list:import.meta.glob(`../../public/json/article/life/2020/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2019',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/life/2019/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/life/2019/**.json`, { as: 'raw', eager: true })
+                        list:import.meta.glob(`../../public/json/article/life/2019/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2018',
-                        list: import.meta.env.DEV ? import.meta.glob(`../../public/json/article/life/2018/**.json`, { as: 'raw', eager: true }) : import.meta.glob(`/json/article/life/2018/**.json`, { as: 'raw', eager: true })
+                        list:import.meta.glob(`../../public/json/article/life/2018/**.json`, { as: 'raw', eager: true })
                     },
                 ],
                 total = 0
