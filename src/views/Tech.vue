@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-07 13:16:32
+ * @LastEditTime: 2023-11-08 00:52:26
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Tech.vue
@@ -78,7 +78,7 @@ export default defineComponent({
             }),
             pager = reactive({
                 total: 0,
-                pageSize: 2,
+                pageSize: 10,
                 pageNo: 1,
             }),
             userInfo = reactive({
@@ -102,6 +102,7 @@ export default defineComponent({
                 param.tagId = tagId
             }
             
+            // 缓存里面没有要的数据，重新遍历目录，获取静态数据
             if (!useArticleStore().list.length || categoryId !== Number(useArticleStore().categoryId) || tagId !== Number(useArticleStore().tagId) || pageSize !== Number(useArticleStore().pageSize)) {
                 await fetchTechArticleList(param)
             }

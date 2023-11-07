@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-07 13:18:22
+ * @LastEditTime: 2023-11-08 00:50:40
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
@@ -118,12 +118,14 @@ export const fetchTechArticleList = (param: any) => {
                     },
                 ],
                 temp,
-                total = 0
+                total = 0,
+                count = 0
 
             useArticleStore().$patch({ ...param })
 
             modules.forEach((item) => {
                 if (Object.keys(item.list).length) {
+                    total+=Object.keys(item.list).length
                     file = {
                         date: item.date,
                         list: <any>[]
@@ -134,19 +136,27 @@ export const fetchTechArticleList = (param: any) => {
                             if ((param.tagId && !temp.tagIds.split(',').includes(param.tagId + '')) || (param.categoryId && Number(temp.categoryId) !== Number(param.categoryId))) {
                                 temp = ''
                             } else {
-                                total++
+                                count++
+
                                 if (!allPageData.length) {
-                                    file.list.push(temp)
+                                    // 置空第一页
                                     allPageData = [[]]
-                                    console.log(11)
-                                } else if (total >= param.pageSize && total % param.pageSize === 0) {
+                                }
+
+                                if (count >= param.pageSize && count % param.pageSize === 0) {
                                     file.list.push(temp)
                                     allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+                                    
+                                    // 翻页了，置空下一页
                                     allPageData.push([])
                                     file.list = []
                                 } else {
                                     file.list.push(temp)
-                                    allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+
+                                    // 相等的时候表示一个时间年段内的循环已经完结，可以推入数组中 
+                                    if (count === total) {
+                                        allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+                                    }
                                 }
                             }
                         }
