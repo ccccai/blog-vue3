@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-09-21 04:31:05
+ * @LastEditTime: 2023-11-05 21:41:08
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/NoteList.vue
@@ -16,7 +16,7 @@
                     <div class="list-year">{{ item.date }}</div>
                     <div class="list-box-info">
                         <template v-for="(article) in item.list">
-                            <note-item :data="article" />
+                            <note-item :year="item.date" :data="article" />
                         </template>
                     </div>
                 </template>

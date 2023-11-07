@@ -1,7 +1,7 @@
 <template>
     <div v-if="!isCreate && !data?.id"
          class="empty-content">
-        <span class="empty-tips">{{ tips || '啊哦。找不到内容~' }}</span>
+        <span class="empty-tips">{{ tips }}</span>
     </div>
     <div v-else
          class="article-content">
@@ -66,8 +66,8 @@
                         <div v-show="data.coverUrl"
                              class="article-cover">
                             <span class="img-border img-top-border" />
-                            <img class="article-img"
-                                 :src="data.coverUrl" />
+                            <img-box class="article-img"
+                                       :src="data.coverUrl" />
                             <span class="img-border img-bottom-border" />
                         </div>
                         <div v-show="desc"
@@ -95,6 +95,7 @@ import { useRoute } from 'vue-router'
 import PopForm from '@/components/PopForm.vue'
 import MdViewer from '@/components/MdViewer.vue'
 import MdEditor from '@/components/MdEditor.vue'
+import ImgBox from '@/components/ImgBox.vue'
 import dayjs from '@/assets/dayjs'
 import { message } from 'ant-design-vue'
 import type { PopFormState, ItemProps, IResponseData } from '@/types'
@@ -109,7 +110,8 @@ export default defineComponent({
     components: {
         PopForm,
         MdViewer,
-        MdEditor
+        MdEditor,
+        ImgBox
     },
     setup(props) {
         const route = useRoute()
@@ -118,13 +120,13 @@ export default defineComponent({
             title = ref<string>(''),
             subTitle = ref<string>(''),
             desc = ref<string>(''),
-            tips = ref<string>(''),
+            tips = ref<string>('...'),
             content = ref<string>(''),
             dateStr = ref<string>(''),
             isCreate = ref<boolean>(route.path === '/article/create'),
             openPopcon = ref<boolean>(false),
-            editArticleId = ref<number>(Number(route.query?.editid || 0)),
-            articleId = ref<number>(Number(route.query?.id) || 0),
+            editArticleId = ref<number>(Number(route.params?.editid || 0)),
+            articleId = ref<number>(Number(route.params?.id) || 0),
             state = reactive<stateProps>({
                 data: {},
                 categoryList: [],
@@ -151,6 +153,8 @@ export default defineComponent({
                 subTitle.value = data?.subTitle
                 desc.value = data?.description
                 content.value = data?.content
+            } else {
+                tips.value = '啊哦。找不到内容~'
             }
         }
 
@@ -177,12 +181,10 @@ export default defineComponent({
         }
 
         const handleOpenPopcon = (isOpen: boolean) => {
-            console.log('---------isOpen:', isOpen)
             openPopcon.value = isOpen
         }
 
         const handleEditSubmit = async (data: any) => {
-            console.log('---------params:', data)
             const params = {
                 ...data,
             }
@@ -210,9 +212,6 @@ export default defineComponent({
         }
 
         const initData = (articleId: number = 0, editArticleId: number = 0) => {
-            console.log('---------articleId:', articleId)
-            console.log('---------editArticleId:', editArticleId)
-            console.log('---------isCreate:', isCreate.value)
             if (articleId || editArticleId) {
                 getArticle(articleId || editArticleId)
             }
@@ -224,16 +223,14 @@ export default defineComponent({
         }
 
         const handleContent = (val: string) => {
-            console.log(4444, val)
             if (typeof val === 'string') {
-                console.log(5555, val)
                 content.value = val
             }
         }
 
         // 监听路由变化
         watch(
-            () => route.query,
+            () => route.params,
             (val, oldVal) => {
                 if (val?.id !== oldVal?.id || val?.editid !== oldVal?.editid) {
                     articleId.value = Number(val?.id || 0)

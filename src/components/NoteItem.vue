@@ -1,14 +1,14 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:34:13
- * @LastEditTime: 2023-10-27 02:50:57
+ * @LastEditTime: 2023-11-06 19:46:56
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/NoteItem.vue
 -->
 <template>
-    <a :href="`/article?id=${id}`"
-       class="note-list-box">
+    <router-link :to="`/article/life/${year}/${id}`"
+                 class="note-list-box">
         <div class="list-img"
              :style="{ backgroundImage: `url(${cover})` }" />
         <div class="list-desc">
@@ -23,7 +23,7 @@
             </div>
             <div class="desc-text">{{ description }}</div>
         </div>
-    </a>
+    </router-link>
 </template>
 <script setup lang="ts" name='NoteItem'>
 import { toRefs } from 'vue'
@@ -32,8 +32,10 @@ import type { ArticleProps } from '@/types'
 
 const props = withDefaults(defineProps<{
     data?: ArticleProps,
+    year?: string,
 }>(), {
     data: () => ({}),
+    year: '',
 })
 const { id, cover, title, subTitle, authorAvatar, createDate, description } = toRefs(props.data)
 </script>

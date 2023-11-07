@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-09-21 04:54:29
+ * @LastEditTime: 2023-11-08 05:15:53
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -39,7 +39,7 @@
                            :lg="8"
                            :xl="8"
                            class="card-box">
-                        <a :href="`/article?id=${item.id}`">
+                        <router-link :to="`/article/tech/${item.year}/${item.id}`">
                             <a-card class="card-item">
                                 <template #cover>
                                     <div class="cover-img"
@@ -50,7 +50,7 @@
                                     <template #description>{{ item.subTitle }}</template>
                                 </a-card-meta>
                             </a-card>
-                        </a>
+                        </router-link>
                     </a-col>
                 </a-row>
             </a-col>
@@ -105,7 +105,7 @@
                                    :key="'card' + index"
                                    :span="24"
                                    class="card-box">
-                                <a :href="`/article?id=${item.id}`">
+                                <router-link :to="`/article/tech/${item.year}/${item.id}`">
                                     <a-card class="card-item">
                                         <template #cover>
                                             <div class="cover-img"
@@ -131,7 +131,7 @@
                                             </div>
                                         </div>
                                     </a-card>
-                                </a>
+                                </router-link>
                             </a-col>
                         </a-row>
                     </a-col>
@@ -159,8 +159,8 @@ interface stateProps {
     count: CountProps
     categories: ItemProps[]
     tags: ItemProps[],
-    featuredArticles: ArticleProps[]
-    recentArticles: ArticleProps[]
+    featuredArticles?: ArticleProps[]
+    recentArticles?: ArticleProps[]
 }
 const state = reactive<stateProps>({
     count: {

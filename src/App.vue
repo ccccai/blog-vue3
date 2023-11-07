@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-10-25 21:41:23
+ * @LastEditTime: 2023-11-07 10:31:35
  * @LastEditors: caishiyin
  * @Description: 根组件模板
  * @FilePath: /my-blog-vue3/src/App.vue
@@ -76,7 +76,7 @@ export default defineComponent({
                 }
             })
 
-            store.activeNav = hasCurrent ? currentNavIndex : -1
+            activeNav.value = hasCurrent ? currentNavIndex : -1
         }
 
         onMounted(() => {

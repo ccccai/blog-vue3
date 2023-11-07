@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-09-21 17:23:12
+ * @LastEditTime: 2023-11-08 05:09:21
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/router/index.ts
@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     {
-        path: "/article",
+        path: "/article/:type/:year/:id",
         name: "Article",
         component: () => import("@/views/Article.vue"),
         meta: {
@@ -82,7 +82,7 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from, next) => { useLoadingStore().setSpinning(true); next() })
-router.afterEach(() => useLoadingStore().setSpinning(false))
+router.beforeEach((to, from, next) => { useLoadingStore().$patch({spinning: true}); next() })
+router.afterEach(() => useLoadingStore().$patch({spinning: false}))
 
 export default router

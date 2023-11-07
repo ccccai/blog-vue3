@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2020-12-10 14:53:10
- * @LastEditTime: 2023-10-27 02:50:49
+ * @LastEditTime: 2023-11-05 22:26:44
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/types/index.ts
@@ -95,6 +95,7 @@ export interface ArticleProps {
     weight?: number
     authorAvatar?: string,
     createDate?: Dayjs,
+    year?: string,
     description?: string
     tagList?: Array<ItemProps>
 }

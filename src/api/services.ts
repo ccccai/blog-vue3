@@ -8,6 +8,7 @@ import { useLoadingStore } from "@/stores"
 
 // 域名
 export const requestPath = 'http://127.0.0.1:3232'
+// export const requestPath = ''
 // 请求允许方法
 const CAN_SEND_METHOD = ['POST', 'PUT', 'PATCH', 'DELETE']
 // 当前正在请求的数量
@@ -24,18 +25,18 @@ type ICustomRequestError = {
 }
 
 // 显示全局loading
-function showLoading() {
+export function showLoading() {
     if (requestCount === 0 && !useLoadingStore().spinning) {
-        useLoadingStore().setSpinning(true)
+        useLoadingStore().$patch({spinning: true})
     }
     requestCount++
 }
 
 // 隐藏全局loading
-function hideLoading() {
+export function hideLoading() {
     requestCount--
     if (requestCount === 0 && useLoadingStore().spinning) {
-        useLoadingStore().setSpinning(false)
+        useLoadingStore().$patch({spinning: false})
     }
 }
 
@@ -52,7 +53,6 @@ function filterObject(o: Record<string, string>, filter: Function) {
 
 // 捕获异常内部处理
 function dealErrToast(err: Error & ICustomRequestError, abortController?: AbortController) {
-    console.log('err', err)
     const errorInfoMap: any = {
         500: {
             type: 'exception',
@@ -141,8 +141,6 @@ class Http implements IHttpInterface {
             }
         }
 
-        console.log('opts', opts)
-
         try {
             const res = await Promise.race([
                 fetch(apiUrl, opts),
@@ -168,6 +166,13 @@ class Http implements IHttpInterface {
 
 const { fetchHandler } = new Http()
 export { fetchHandler as default }
+
+export const fetchJSON = async (url: string) => {
+    showLoading()
+    const res = await fetch(url)
+    await hideLoading()
+    return res.json()
+}
 
 // 封装fetch的get请求
 export const fetchGet = ({ url, param = {}, options = {} }: IFetchParams) => {

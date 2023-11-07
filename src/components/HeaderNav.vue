@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-16 01:27:58
- * @LastEditTime: 2023-10-27 02:32:08
+ * @LastEditTime: 2023-11-06 19:49:06
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/HeaderNav.vue
@@ -19,11 +19,11 @@
                    :style="{ maxWidth: 1100 }">
 
                 <div class="header-nav-left">
-                    <a class="logo"
-                       href="/">
+                    <router-link class="logo"
+                                 to="/">
                         <img src="@/assets/images/svg/bear.svg" />
                         <span>CAISHIYIN'S BLOG</span>
-                    </a>
+                    </router-link>
                 </div>
 
 
@@ -31,7 +31,7 @@
                     <ul class="menu-nav-content">
                         <li v-for="(menu, index) in navList"
                             class="menu-nav-item"
-                            :class="{'active-nav-item': activeNav === index}"
+                            :class="{ 'active-nav-item': activeNav === index }"
                             :key="index">
                             <span @click="$router.push(menu.url)">{{ menu.title_en }}</span>
                         </li>
@@ -47,11 +47,11 @@
                  @click="handleDrawer(true)" />
 
             <div class="header-nav-left">
-                <a class="logo"
-                   href="/">
+                <router-link class="logo"
+                             to="/">
                     <img src="@/assets/images/svg/bear.svg" />
                     <span>CAISHIYIN'S BLOG</span>
-                </a>
+                </router-link>
             </div>
 
             <a-drawer width="100"
@@ -72,8 +72,8 @@
                         :key="index"
                         class="menu-drawer-item"
                         @click="handleDrawer(false)">
-                        <a class="logo"
-                           :href="menu.url">{{ menu.title_en }}</a>
+                        <router-link class="logo"
+                                     :to="menu.url">{{ menu.title_en }}</router-link>
                     </li>
                 </ul>
             </a-drawer>
