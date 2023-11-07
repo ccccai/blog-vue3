@@ -87,7 +87,7 @@
                                           class="avatar-uploader"
                                           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                           @change="(info: UploadChangeParam) => handleUploadChange(info, 'cover')">
-                                    <img v-if="formState.coverUrl"
+                                    <img-box v-if="formState.coverUrl"
                                          :src="formState.coverUrl"
                                          :style="{ width: '100%' }"
                                          alt="avatar" />
@@ -120,7 +120,7 @@
                                           class="avatar-uploader"
                                           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                           @change="(info: UploadChangeParam) => handleUploadChange(info, 'avatar')">
-                                    <img v-if="formState.avatarUrl"
+                                    <img-box v-if="formState.avatarUrl"
                                          :src="formState.avatarUrl"
                                          :style="{ width: '100%' }"
                                          alt="avatar" />
@@ -154,6 +154,7 @@ import { ref, reactive, type UnwrapRef, type PropType } from 'vue'
 import dayjs, { Dayjs } from 'dayjs'
 import { type UploadChangeParam, type UploadFile, message } from 'ant-design-vue'
 import type { ItemProps, PopFormState } from '@/types'
+import ImgBox from '@/components/ImgBox.vue'
 
 interface FormState extends PopFormState {
     dateParse: Dayjs

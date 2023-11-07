@@ -27,7 +27,7 @@ type ICustomRequestError = {
 // 显示全局loading
 export function showLoading() {
     if (requestCount === 0 && !useLoadingStore().spinning) {
-        useLoadingStore().setSpinning(true)
+        useLoadingStore().$patch({spinning: true})
     }
     requestCount++
 }
@@ -36,7 +36,7 @@ export function showLoading() {
 export function hideLoading() {
     requestCount--
     if (requestCount === 0 && useLoadingStore().spinning) {
-        useLoadingStore().setSpinning(false)
+        useLoadingStore().$patch({spinning: false})
     }
 }
 

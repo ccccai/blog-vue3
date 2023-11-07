@@ -1,5 +1,5 @@
 {
-    "id": 12,
+    "id": 1,
     "title": "macOS安装PHP+MySQL+Nginx+Composer环境",
     "subTitle": "生产力工具配置",
     "link": null,
@@ -11,7 +11,7 @@
     "weight": 1,
     "type": 1,
     "groupTimestamp": "1544191936520",
-    "cover": null,
+    "cover": "https://bpic.51yuansu.com/pic3/cover/02/64/14/59fcc0d15634b_610.jpg",
     "categoryId": 2,
     "created_at": "2023-11-06T14:15:49.000Z",
     "updated_at": "2023-11-06T15:44:42.000Z",

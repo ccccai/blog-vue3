@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-05 15:15:15
+ * @LastEditTime: 2023-11-07 13:16:32
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Tech.vue
@@ -48,6 +48,7 @@ import TimelineList from '@/components/TimelineList.vue'
 import { fetchTechArticleList, fetchTagList, fetchCategoryList, fetchBlogInfo } from '@/api'
 import { navList as menuList } from '@/assets/settings'
 import type { CountProps, ItemProps, ArticleListProps, IResponseData } from '@/types'
+import { useArticleStore } from "@/stores/article"
 
 interface stateProps {
     count: CountProps
@@ -77,7 +78,7 @@ export default defineComponent({
             }),
             pager = reactive({
                 total: 0,
-                pageSize: 10,
+                pageSize: 2,
                 pageNo: 1,
             }),
             userInfo = reactive({
@@ -100,11 +101,14 @@ export default defineComponent({
             if (tagId > 0) {
                 param.tagId = tagId
             }
-            const fetchRes = await fetchTechArticleList(param)
-            if (fetchRes) {
-                state.articleList = fetchRes?.list || []
-                pager.total = fetchRes?.total || 0
+            
+            if (!useArticleStore().list.length || categoryId !== Number(useArticleStore().categoryId) || tagId !== Number(useArticleStore().tagId) || pageSize !== Number(useArticleStore().pageSize)) {
+                await fetchTechArticleList(param)
             }
+            
+            useArticleStore().$patch({ pageNo: pager.pageNo })
+            state.articleList = useArticleStore().list[pager.pageNo - 1]
+            pager.total = useArticleStore().total
         }
 
         const getInfo = async () => {

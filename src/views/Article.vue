@@ -66,8 +66,8 @@
                         <div v-show="data.coverUrl"
                              class="article-cover">
                             <span class="img-border img-top-border" />
-                            <img class="article-img"
-                                 :src="data.coverUrl" />
+                            <img-box class="article-img"
+                                       :src="data.coverUrl" />
                             <span class="img-border img-bottom-border" />
                         </div>
                         <div v-show="desc"
@@ -95,6 +95,7 @@ import { useRoute } from 'vue-router'
 import PopForm from '@/components/PopForm.vue'
 import MdViewer from '@/components/MdViewer.vue'
 import MdEditor from '@/components/MdEditor.vue'
+import ImgBox from '@/components/ImgBox.vue'
 import dayjs from '@/assets/dayjs'
 import { message } from 'ant-design-vue'
 import type { PopFormState, ItemProps, IResponseData } from '@/types'
@@ -109,7 +110,8 @@ export default defineComponent({
     components: {
         PopForm,
         MdViewer,
-        MdEditor
+        MdEditor,
+        ImgBox
     },
     setup(props) {
         const route = useRoute()

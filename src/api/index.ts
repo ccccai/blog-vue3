@@ -1,13 +1,14 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-06 23:55:24
+ * @LastEditTime: 2023-11-07 13:18:22
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
  */
 
 import { fetchGet, fetchPost, fetchJSON, showLoading, hideLoading } from './services'
+import { useArticleStore } from "@/stores/article"
 
 export const prefix = '/json/'
 
@@ -36,10 +37,10 @@ export const fetchFeaturedArticleList = () => {
         try {
             showLoading()
             const modules = import.meta.glob([
-                    `../../public/json/article/tech/2019/2.json`,
-                    `../../public/json/article/tech/2019/1.json`,
-                    `../../public/json/article/tech/2018/1.json`,
-                ], { as: 'raw', eager: true }),
+                `../../public/json/article/tech/2019/3.json`,
+                `../../public/json/article/tech/2019/2.json`,
+                `../../public/json/article/tech/2018/1.json`,
+            ], { as: 'raw', eager: true }),
                 list: Array<any> = []
 
             for (let path in modules) {
@@ -70,7 +71,7 @@ export const fetchRecentArticleList = () => {
                 if (modules[path]) {
                     list.push(JSON.parse(modules[path]))
                 }
-                
+
                 if (index >= 3) {
                     break
                 }
@@ -84,12 +85,12 @@ export const fetchRecentArticleList = () => {
     })
 }
 
-export const fetchTechArticleList = () => {
+export const fetchTechArticleList = (param: any) => {
     return new Promise((resolve, reject) => {
         try {
             showLoading()
-            const list: Array<any> = []
-            let file,
+            let allPageData: Array<any> = [],
+                file,
                 modules = [
                     {
                         date: '2023',
@@ -116,9 +117,12 @@ export const fetchTechArticleList = () => {
                         list: import.meta.glob(`../../public/json/article/tech/2018/**.json`, { as: 'raw', eager: true })
                     },
                 ],
+                temp,
                 total = 0
+
+            useArticleStore().$patch({ ...param })
+
             modules.forEach((item) => {
-                total += Object.keys(item.list).length
                 if (Object.keys(item.list).length) {
                     file = {
                         date: item.date,
@@ -126,17 +130,32 @@ export const fetchTechArticleList = () => {
                     }
                     for (let path in item.list) {
                         if (item.list[path]) {
-                            file.list.push(JSON.parse(item.list[path]))
+                            temp = JSON.parse(item.list[path])
+                            if ((param.tagId && !temp.tagIds.split(',').includes(param.tagId + '')) || (param.categoryId && Number(temp.categoryId) !== Number(param.categoryId))) {
+                                temp = ''
+                            } else {
+                                total++
+                                if (!allPageData.length) {
+                                    file.list.push(temp)
+                                    allPageData = [[]]
+                                    console.log(11)
+                                } else if (total >= param.pageSize && total % param.pageSize === 0) {
+                                    file.list.push(temp)
+                                    allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+                                    allPageData.push([])
+                                    file.list = []
+                                } else {
+                                    file.list.push(temp)
+                                    allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+                                }
+                            }
                         }
                     }
-                    list.push(file)
                 }
             })
             hideLoading()
-            resolve({
-                total,
-                list
-            })
+            useArticleStore().$patch({ list: allPageData, total })
+            resolve({})
         } catch (err: any) {
             hideLoading()
             reject(err)
@@ -148,38 +167,39 @@ export const fetchLifeArticleList = () => {
     return new Promise((resolve, reject) => {
         try {
             showLoading()
-            const list: Array<any> = []
+            const allPageData: Array<any> = []
             let file,
                 modules = [
                     {
                         date: '2023',
-                        list:import.meta.glob(`../../public/json/article/life/2023/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/life/2023/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2022',
-                        list:import.meta.glob(`../../public/json/article/life/2022/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/life/2022/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2021',
-                        list:import.meta.glob(`../../public/json/article/life/2021/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/life/2021/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2020',
-                        list:import.meta.glob(`../../public/json/article/life/2020/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/life/2020/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2019',
-                        list:import.meta.glob(`../../public/json/article/life/2019/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/life/2019/**.json`, { as: 'raw', eager: true })
                     },
                     {
                         date: '2018',
-                        list:import.meta.glob(`../../public/json/article/life/2018/**.json`, { as: 'raw', eager: true })
+                        list: import.meta.glob(`../../public/json/article/life/2018/**.json`, { as: 'raw', eager: true })
                     },
                 ],
-                total = 0
+                total = useArticleStore().total,
+                pageSize = useArticleStore().pageSize
             modules.forEach((item) => {
-                total += Object.keys(item.list).length
                 if (Object.keys(item.list).length) {
+                    total += Object.keys(item.list).length
                     file = {
                         date: item.date,
                         list: <any>[]
@@ -189,14 +209,16 @@ export const fetchLifeArticleList = () => {
                             file.list.push(JSON.parse(item.list[path]))
                         }
                     }
-                    list.push(file)
+                    if (total % pageSize === 0) {
+                        allPageData.push([file])
+                    } else {
+                        allPageData[allPageData.length - 1].push(file)
+                    }
                 }
             })
             hideLoading()
-            resolve({
-                total,
-                list
-            })
+            useArticleStore().$patch({ list: allPageData, total, pageNo: 1 })
+            resolve({ list: allPageData[0], total })
         } catch (err: any) {
             hideLoading()
             reject(err)

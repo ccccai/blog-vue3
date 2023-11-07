@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-06 19:43:51
+ * @LastEditTime: 2023-11-07 10:34:59
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/router/index.ts
@@ -82,7 +82,7 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from, next) => { useLoadingStore().setSpinning(true); next() })
-router.afterEach(() => useLoadingStore().setSpinning(false))
+router.beforeEach((to, from, next) => { useLoadingStore().$patch({spinning: true}); next() })
+router.afterEach(() => useLoadingStore().$patch({spinning: false}))
 
 export default router
