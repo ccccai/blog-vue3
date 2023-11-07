@@ -23,30 +23,35 @@
                 <li class="detail-item">
                     <router-link to="/tech">
                         <div class="detail-item-top">ARTICLES</div>
-                        <div class="detail-item-bottom">{{ count.articles || 0 }}</div>
+                        <div class="detail-item-bottom">{{ useArticleStore().articleAmount }}</div>
                     </router-link>
                 </li>
                 <li class="detail-item">
                     <router-link to="/tech">
                         <div class="detail-item-top">TAGS</div>
-                        <div class="detail-item-bottom">{{ count.tags || 0 }}</div>
+                        <div class="detail-item-bottom">{{ useArticleStore().tagAmount }}</div>
                     </router-link>
                 </li>
                 <li class="detail-item">
                     <router-link to="/tech">
                         <div class="detail-item-top">CATEGORIES</div>
-                        <div class="detail-item-bottom">{{ count.categories || 0 }}</div>
+                        <div class="detail-item-bottom">{{ useArticleStore().categoryAmount }}</div>
                     </router-link>
                 </li>
             </ul>
             <ul class="third-party">
                 <li class="third-party-item">
-                    <img src="@/assets/images/svg/github.svg"
-                         title="Git" />
+                    <a href="https://github.com/ccccai"
+                       target="_blank">
+                        <img src="@/assets/images/svg/github.svg"
+                             title="Git" />
+                    </a>
                 </li>
                 <li class="third-party-item">
-                    <img src="@/assets/images/svg/mail.svg"
-                         title="Mail" />
+                    <a href="mailto:greenycaicai@163.com">
+                        <img src="@/assets/images/svg/mail.svg"
+                             title="Mail" />
+                    </a>
                 </li>
             </ul>
         </a-col>
@@ -62,7 +67,7 @@
                 <li v-for="(category, index) in  categories"
                     @click="$router.push(`/tech?category=${category?.id}`)"
                     :key="`category${index}`"
-                    :class="['category-list-item', {'active-category-item': Number(categoryId) === Number(category?.id)}]">
+                    :class="['category-list-item', { 'active-category-item': Number(categoryId) === Number(category?.id) }]">
                     <span>{{ category?.name }}</span>
                     <span class="count">{{ category?.count }}</span>
                 </li>
@@ -81,7 +86,7 @@
                     @click="$router.push(`/tech?tag=${tag?.id}`)"
                     :key="`tags${index}`"
                     class="tags-list-item"
-                    :class="{'active-tags-item': Number(tagId) === Number(tag?.id)}"
+                    :class="{ 'active-tags-item': Number(tagId) === Number(tag?.id) }"
                     :style="{ fontSize: getRendomFontSize(12, 20) }">
                     <span>{{ tag?.name }}</span>
                 </li>
@@ -92,24 +97,19 @@
 <script setup lang="ts" name="InfoBox">
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import type { CountProps, ItemProps } from '@/types'
+import type { ItemProps } from '@/types'
+import { useArticleStore } from "@/stores/article"
 
 const props = withDefaults(defineProps<{
     nickName?: string,
     description?: string,
     tags?: ItemProps[],
-    categories?: ItemProps[],
-    count?: CountProps,
+    categories?: ItemProps[]
 }>(), {
     nickName: '',
     description: '',
     tags: () => [],
-    categories: () => [],
-    count: () => ({
-        articles: 0,
-        tags: 0,
-        categories: 0
-    }),
+    categories: () => []
 })
 
 const route = useRoute(),

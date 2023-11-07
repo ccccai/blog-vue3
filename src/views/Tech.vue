@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-08 00:52:26
+ * @LastEditTime: 2023-11-08 03:34:10
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Tech.vue
@@ -22,7 +22,6 @@
                        :description="description"
                        :categories="categories"
                        :tags="tags"
-                       :count="count"
                        @update-data="initData" />
         </a-col>
         <a-col :xs="22"
@@ -47,11 +46,10 @@ import BlogInfo from '@/components/InfoBox.vue'
 import TimelineList from '@/components/TimelineList.vue'
 import { fetchTechArticleList, fetchTagList, fetchCategoryList, fetchBlogInfo } from '@/api'
 import { navList as menuList } from '@/assets/settings'
-import type { CountProps, ItemProps, ArticleListProps, IResponseData } from '@/types'
+import type { ItemProps, ArticleListProps, IResponseData } from '@/types'
 import { useArticleStore } from "@/stores/article"
 
 interface stateProps {
-    count: CountProps
     categories: ItemProps[]
     tags: ItemProps[],
     articleList: ArticleListProps[]
@@ -67,11 +65,6 @@ export default defineComponent({
         const route = useRoute(),
             bannerImgUrl = ref<string>(''),
             state = reactive<stateProps>({
-                count: {
-                    articles: 0,
-                    tags: 0,
-                    categories: 0
-                },
                 categories: [],
                 tags: [],
                 articleList: []
@@ -107,7 +100,7 @@ export default defineComponent({
                 await fetchTechArticleList(param)
             }
             
-            useArticleStore().$patch({ pageNo: pager.pageNo })
+            useArticleStore().$patch({ pageNo: pager.pageNo, pageSize:pager.pageSize })
             state.articleList = useArticleStore().list[pager.pageNo - 1]
             pager.total = useArticleStore().total
         }

@@ -98,7 +98,7 @@ import MdEditor from '@/components/MdEditor.vue'
 import ImgBox from '@/components/ImgBox.vue'
 import dayjs from '@/assets/dayjs'
 import { message } from 'ant-design-vue'
-import type { PopFormState, ItemProps, IResponseData } from '@/types'
+import type { PopFormState, ItemProps } from '@/types'
 
 interface stateProps {
     categoryList: ItemProps[]
@@ -135,8 +135,6 @@ export default defineComponent({
                 tagList: []
             })
 
-        console.log('articleId', articleId)
-        console.log('articleYear', articleYear)
         const getArticle = async (id: number) => {
             try {
                 const fetchRes = await fetchArticle(`${prefix}article/${articleType.value}/${articleYear.value}/${id}.json`)
@@ -177,12 +175,10 @@ export default defineComponent({
         }
 
         const handleOpenPopcon = (isOpen: boolean) => {
-            console.log('---------isOpen:', isOpen)
             openPopcon.value = isOpen
         }
 
         const handleEditSubmit = async (data: any) => {
-            console.log('---------params:', data)
             const params = {
                 ...data,
             }
@@ -210,9 +206,6 @@ export default defineComponent({
         }
 
         const initData = (articleId: number = 0, editArticleId: number = 0) => {
-            console.log('---------articleId:', articleId)
-            console.log('---------editArticleId:', editArticleId)
-            console.log('---------isCreate:', isCreate.value)
             if (articleId || editArticleId) {
                 getArticle(articleId || editArticleId)
             }
@@ -224,7 +217,6 @@ export default defineComponent({
         }
 
         const handleContent = (val: string) => {
-            console.log(4444, val)
             if (typeof val === 'string') {
                 content.value = val
             }

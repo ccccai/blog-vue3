@@ -53,7 +53,6 @@ function filterObject(o: Record<string, string>, filter: Function) {
 
 // 捕获异常内部处理
 function dealErrToast(err: Error & ICustomRequestError, abortController?: AbortController) {
-    console.log('err', err)
     const errorInfoMap: any = {
         500: {
             type: 'exception',
@@ -141,8 +140,6 @@ class Http implements IHttpInterface {
                 apiUrl = getRequestBody(apiUrl, filterObject(opts.params, Boolean))
             }
         }
-
-        console.log('opts', opts)
 
         try {
             const res = await Promise.race([
