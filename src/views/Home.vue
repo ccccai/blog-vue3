@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-08 05:15:53
+ * @LastEditTime: 2023-11-08 05:29:14
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -39,7 +39,7 @@
                            :lg="8"
                            :xl="8"
                            class="card-box">
-                        <router-link :to="`/article/tech/${item.year}/${item.id}`">
+                        <router-link :to="`/article?id=${item.id}`">
                             <a-card class="card-item">
                                 <template #cover>
                                     <div class="cover-img"
@@ -105,7 +105,7 @@
                                    :key="'card' + index"
                                    :span="24"
                                    class="card-box">
-                                <router-link :to="`/article/tech/${item.year}/${item.id}`">
+                                <router-link :to="`/article?id=${item.id}`">
                                     <a-card class="card-item">
                                         <template #cover>
                                             <div class="cover-img"

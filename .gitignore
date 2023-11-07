@@ -28,3 +28,4 @@ coverage
 *.sw?
 
 public/json/*
+dist-backup

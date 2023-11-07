@@ -91,7 +91,7 @@
 <script lang="ts">
 import { ref, toRefs, reactive, defineComponent, watch, onMounted } from 'vue'
 import { fetchArticle, fetchTagList, fetchCategoryList, updateArticle, createArticle } from '@/api'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import PopForm from '@/components/PopForm.vue'
 import MdViewer from '@/components/MdViewer.vue'
 import MdEditor from '@/components/MdEditor.vue'
@@ -115,6 +115,7 @@ export default defineComponent({
     },
     setup(props) {
         const route = useRoute()
+        const router = useRouter()
         const pageHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
             contentHeight = innerHeight - 80 - 20,
             title = ref<string>(''),
@@ -135,6 +136,7 @@ export default defineComponent({
 
         const getArticle = async (id: number) => {
             const fetchRes = await fetchArticle(id)
+            console.log(888, fetchRes)
             const { resultCode, data } = fetchRes as IResponseData
             if (resultCode === 0) {
                 state.data = {
@@ -200,6 +202,7 @@ export default defineComponent({
                 if (fetchRes && fetchRes?.resultCode === 0) {
                     message.success('修改成功~~~')
                     handleOpenPopcon(false)
+                    router.push({ path: '/article', query: { id: params.id } })
                 }
             } else if (isCreate.value) {
                 delete params.id
@@ -207,6 +210,7 @@ export default defineComponent({
                 if (fetchRes && fetchRes?.resultCode === 0) {
                     message.success('新建成功~~~')
                     handleOpenPopcon(false)
+                    router.push({ path: '/article', query: { id: fetchRes?.id } })
                 }
             }
         }
@@ -230,8 +234,10 @@ export default defineComponent({
 
         // 监听路由变化
         watch(
-            () => route.params,
+            () => route.query,
             (val, oldVal) => {
+                console.log(val)
+                console.log(val)
                 if (val?.id !== oldVal?.id || val?.editid !== oldVal?.editid) {
                     articleId.value = Number(val?.id || 0)
                     editArticleId.value = Number(val?.editid || 0)
@@ -241,6 +247,8 @@ export default defineComponent({
         )
 
         onMounted(() => {
+            articleId.value = Number(route.query?.id || 0)
+            editArticleId.value = Number(route.query?.editid || 0)
             initData(articleId.value, editArticleId.value)
         })
 

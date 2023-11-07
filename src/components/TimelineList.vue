@@ -7,7 +7,7 @@
                     <div class="list-year">{{ item.date }}</div>
                     <div class="list-box-info">
                         <template v-for="(article) in item.list">
-                            <router-link :to="`/article/tech/${item.date}/${article.id}`"
+                            <router-link :to="`/article?id=${article.id}`"
                                class="list-box">
                                 <div class="list-img"
                                      :style="{ backgroundImage: `url(${article.cover})` }" />

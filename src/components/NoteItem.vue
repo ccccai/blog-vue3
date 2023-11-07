@@ -1,13 +1,13 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:34:13
- * @LastEditTime: 2023-11-06 19:46:56
+ * @LastEditTime: 2023-11-08 05:27:31
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/NoteItem.vue
 -->
 <template>
-    <router-link :to="`/article/life/${year}/${id}`"
+    <router-link :to="`/article?id=${id}`"
                  class="note-list-box">
         <div class="list-img"
              :style="{ backgroundImage: `url(${cover})` }" />
