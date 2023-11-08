@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-08 06:29:57
+ * @LastEditTime: 2023-11-08 12:21:56
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
@@ -9,6 +9,7 @@
 
 import { fetchGet, fetchPost, fetchJSON, showLoading, hideLoading } from './services'
 import { useArticleStore } from "@/stores/article"
+import { useNoteStore } from "@/stores/note"
 
 export const prefix = '/json/'
 
@@ -76,7 +77,7 @@ export const fetchRecentArticleList = () => {
             fetchTechArticleList({}, true).then((data: any) => {
                 const newList = JSON.parse(JSON.stringify(data))
                 newList.reverse()
-                for (let i = newList.length - 1; i >= 0 ; i--) {
+                for (let i = newList.length - 1; i >= 0; i--) {
                     for (let j = 0; j < newList[i].list.length; j++) {
                         index++
                         list.push(newList[i].list[j])
@@ -112,7 +113,7 @@ export const fetchTechArticleList = (param: any, isQueryAll: boolean = false) =>
             }
 
             if (!useArticleStore().allArticles.length || isQueryAll) {
-                let modules = [
+                const modules = [
                     {
                         date: '2023',
                         list: import.meta.glob(`../../public/json/article/tech/2023/**.json`, { as: 'raw', eager: true })
@@ -137,8 +138,8 @@ export const fetchTechArticleList = (param: any, isQueryAll: boolean = false) =>
                         date: '2018',
                         list: import.meta.glob(`../../public/json/article/tech/2018/**.json`, { as: 'raw', eager: true })
                     },
-                ],
-                    temp,
+                ]
+                let temp,
                     fileTemp
 
                 modules.forEach((item) => {
@@ -210,7 +211,7 @@ export const fetchTechArticleList = (param: any, isQueryAll: boolean = false) =>
                         date: data.date,
                         list: <any>[]
                     }
-                    
+
                     data.list.forEach((item: any) => {
                         if ((param.tagId && !item.tagIds.split(',').includes(param.tagId + '')) || (param.categoryId && Number(item.categoryId) !== Number(param.categoryId))) {
                             currentDataTotal--
@@ -244,7 +245,7 @@ export const fetchTechArticleList = (param: any, isQueryAll: boolean = false) =>
                         }
                     })
                 })
-                
+
                 useArticleStore().$patch({ list: allPageData, total: currentDataTotal })
             }
             hideLoading()
@@ -256,13 +257,19 @@ export const fetchTechArticleList = (param: any, isQueryAll: boolean = false) =>
     })
 }
 
-export const fetchLifeArticleList = () => {
+export const fetchLifeNoteList = (param: any) => {
     return new Promise((resolve, reject) => {
         try {
             showLoading()
-            const allPageData: Array<any> = []
-            let file,
-                modules = [
+            let allPageData: Array<any> = [],
+                allNotes: Array<any> = [],
+                allDataAmount = 0,
+                currentDataTotal = 0,
+                currentDataCount = 0,
+                file: any,
+                length = 0
+            if (!useNoteStore().allNotes.length) {
+                const modules = [
                     {
                         date: '2023',
                         list: import.meta.glob(`../../public/json/article/life/2023/**.json`, { as: 'raw', eager: true })
@@ -287,31 +294,90 @@ export const fetchLifeArticleList = () => {
                         date: '2018',
                         list: import.meta.glob(`../../public/json/article/life/2018/**.json`, { as: 'raw', eager: true })
                     },
-                ],
-                total = useArticleStore().total,
-                pageSize = useArticleStore().pageSize
-            modules.forEach((item) => {
-                if (Object.keys(item.list).length) {
-                    total += Object.keys(item.list).length
+                ]
+                let temp,
+                    fileTemp
+
+                modules.forEach((item) => {
+                    length = Object.keys(item.list).length
+                    if (length) {
+                        currentDataTotal += length
+                        allDataAmount += length
+                        file = {
+                            date: item.date,
+                            list: <any>[]
+                        }
+                        fileTemp = {
+                            date: item.date,
+                            list: <any>[]
+                        }
+                        for (let path in item.list) {
+                            if (item.list[path]) {
+                                temp = JSON.parse(item.list[path])
+                                fileTemp.list.push(temp)
+                                currentDataCount++
+
+                                if (!allPageData.length) {
+                                    // 置空第一页
+                                    allPageData = [[]]
+                                }
+                                if (currentDataCount >= param.pageSize && currentDataCount % param.pageSize === 0) {
+                                    file.list.push(temp)
+                                    allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+
+                                    // 翻页了，置空下一页
+                                    allPageData.push([])
+                                    file.list = []
+                                } else {
+                                    file.list.push(temp)
+
+                                    // 相等的时候表示一个时间年段内的循环已经完结，可以推入数组中 
+                                    if (currentDataCount === currentDataTotal) {
+                                        allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+                                    }
+                                }
+                            }
+                        }
+                        allNotes.push(fileTemp)
+                    }
+                })
+                useNoteStore().$patch({ list: allPageData, total: currentDataTotal, allNotes, noteAmount: allDataAmount })
+            } else {
+                useNoteStore().allNotes.forEach((data: any) => {
+                    length = data.list.length
+                    currentDataTotal += length
                     file = {
-                        date: item.date,
+                        date: data.date,
                         list: <any>[]
                     }
-                    for (let path in item.list) {
-                        if (item.list[path]) {
-                            file.list.push(JSON.parse(item.list[path]))
+                    data.list.forEach((item: any) => {
+                        currentDataCount++
+                        if (!allPageData.length) {
+                            // 置空第一页
+                            allPageData = [[]]
                         }
-                    }
-                    if (total % pageSize === 0) {
-                        allPageData.push([file])
-                    } else {
-                        allPageData[allPageData.length - 1].push(file)
-                    }
-                }
-            })
+
+                        if (currentDataCount >= param.pageSize && currentDataCount % param.pageSize === 0) {
+                            file.list.push(item)
+                            allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+
+                            // 翻页了，置空下一页
+                            allPageData.push([])
+                            file.list = []
+                        } else {
+                            file.list.push(item)
+
+                            // 相等的时候表示一个时间年段内的循环已经完结，可以推入数组中 
+                            if (currentDataCount === currentDataTotal) {
+                                allPageData[allPageData.length - 1].push(JSON.parse(JSON.stringify(file)))
+                            }
+                        }
+                    })
+                })
+                useNoteStore().$patch({ list: allPageData, total: currentDataTotal })
+            }
             hideLoading()
-            useArticleStore().$patch({ list: allPageData, total, pageNo: 1 })
-            resolve({ list: allPageData[0], total })
+            resolve(allNotes)
         } catch (err: any) {
             hideLoading()
             reject(err)

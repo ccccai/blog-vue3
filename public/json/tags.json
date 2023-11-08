@@ -32,7 +32,7 @@
         "id": 8
     },
     {
-        "name": "GitHub",
+        "name": "SSR",
         "id": 9
     },
     {
@@ -48,7 +48,7 @@
         "id": 12
     },
     {
-        "name": "NodeJs",
+        "name": "NodeJS",
         "id": 13
     },
     {
@@ -88,7 +88,7 @@
         "id": 22
     },
     {
-        "name": "component",
+        "name": "NuxtJS",
         "id": 23
     },
     {
@@ -118,5 +118,25 @@
     {
         "name": "MongoDB",
         "id": 30
+    },
+    {
+        "name": "JQuery",
+        "id": 31
+    },
+    {
+        "name": "Laravel",
+        "id": 32
+    },
+    {
+        "name": "Vue3",
+        "id": 33
+    },
+    {
+        "name": "Pinia",
+        "id": 34
+    },
+    {
+        "name": "canvas",
+        "id": 35
     }
 ]
