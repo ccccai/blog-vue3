@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-08 04:12:35
+ * @LastEditTime: 2023-11-08 06:29:57
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
@@ -45,8 +45,8 @@ export const fetchFeaturedArticleList = () => {
         try {
             showLoading()
             const modules = import.meta.glob([
-                `../../public/json/article/tech/2019/3.json`,
-                `../../public/json/article/tech/2019/2.json`,
+                `../../public/json/article/tech/2020/5.json`,
+                `../../public/json/article/tech/2019/4.json`,
                 `../../public/json/article/tech/2018/1.json`,
             ], { as: 'raw', eager: true }),
                 list: Array<any> = []
@@ -74,8 +74,9 @@ export const fetchRecentArticleList = () => {
             let index = 0
 
             fetchTechArticleList({}, true).then((data: any) => {
-                const newList = data.reverse()
-                for (let i = 0; i < newList.length; i++) {
+                const newList = JSON.parse(JSON.stringify(data))
+                newList.reverse()
+                for (let i = newList.length - 1; i >= 0 ; i--) {
                     for (let j = 0; j < newList[i].list.length; j++) {
                         index++
                         list.push(newList[i].list[j])

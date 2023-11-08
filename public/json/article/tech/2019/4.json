@@ -1,5 +1,5 @@
 {
-    "id": 4,
+    "id": 11,
     "title": "用exif.js和canvas解决ios手机拍照上传照片旋转90度的问题",
     "subTitle": "业务问题记录",
     "link": null,
@@ -11,10 +11,10 @@
     "weight": 1,
     "type": 1,
     "groupTimestamp": "1560521536520",
-    "cover": null,
+    "cover": "https://img.tukuppt.com/png_preview/00/58/11/ijwVSqiJ16.jpg",
     "categoryId": 1,
     "created_at": "2023-11-06T14:14:13.000Z",
-    "updated_at": "2023-11-07T21:53:22.000Z",
+    "updated_at": "2023-11-07T22:50:52.000Z",
     "tagList": [
         {
             "id": 11,
