@@ -27,5 +27,5 @@ coverage
 *.sln
 *.sw?
 
-public/json/*
+public/json
 dist-backup
