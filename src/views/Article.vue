@@ -207,10 +207,10 @@ export default defineComponent({
             } else if (isCreate.value) {
                 delete params.id
                 const fetchRes: any = await createArticle(params)
-                if (fetchRes && fetchRes?.resultCode === 0) {
+                if (fetchRes && fetchRes?.resultCode === 0 && fetchRes?.data) {
                     message.success('新建成功~~~')
                     handleOpenPopcon(false)
-                    router.push({ path: '/article', query: { id: fetchRes?.id } })
+                    router.push({ path: '/article', query: { id: fetchRes.data?.id } })
                 }
             }
         }
