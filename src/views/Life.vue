@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-11 05:03:12
+ * @LastEditTime: 2023-11-11 05:29:01
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Life.vue
@@ -11,7 +11,11 @@
                 :banner-url="bannerImgUrl" />
 
     <a-row justify="center">
-        <a-col :lg="22"
+        <a-col :xs="22"
+               :sm="22"
+               :md="22"
+               :lg="22"
+               :xl="18"
                :xxl="18"
                class="life-box">
             <div class="life-content">
