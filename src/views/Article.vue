@@ -136,7 +136,6 @@ export default defineComponent({
 
         const getArticle = async (id: number) => {
             const fetchRes = await fetchArticle(id)
-            console.log(888, fetchRes)
             const { resultCode, data } = fetchRes as IResponseData
             if (resultCode === 0) {
                 state.data = {
@@ -236,8 +235,6 @@ export default defineComponent({
         watch(
             () => route.query,
             (val, oldVal) => {
-                console.log(val)
-                console.log(val)
                 if (val?.id !== oldVal?.id || val?.editid !== oldVal?.editid) {
                     articleId.value = Number(val?.id || 0)
                     editArticleId.value = Number(val?.editid || 0)

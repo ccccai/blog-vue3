@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-09-18 00:25:45
+ * @LastEditTime: 2023-11-10 23:22:31
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Life.vue
@@ -22,13 +22,14 @@
                            :total="total"
                            :page-size="pageSize"
                            :page-no="pageNo"
-                           :on-page-change="handlePage" />
+                           :on-page-change="(page: number) => $router.push({ name: 'Life', query: { page } })" />
             </div>
         </a-col>
     </a-row>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import BannerBox from '@/components/BannerBox.vue'
 import NoteList from '@/components/NoteList.vue'
 import { fetchArticleList } from '@/api'
@@ -41,14 +42,26 @@ export default defineComponent({
         BannerBox,
         NoteList
     },
+    // 监听路由变化
+    watch: {
+        $route: {
+            handler(val, oldVal) {
+                if (val.query?.page !== oldVal.query?.page) {
+                    this.initData()
+                }
+            }
+            ,
+            deep: true
+        }
+    },
     setup() {
-        const
+        const route = useRoute(),
+            bannerImgUrl = ref<string>(''),
             pager = reactive({
                 total: 0,
                 pageSize: 10,
-                pageNo: 1,
-            }),
-            bannerImgUrl = ref<string>('')
+                pageNo: Number(route.query?.page) || 1
+            })
 
         const state = reactive({
             articleList: []
@@ -60,8 +73,13 @@ export default defineComponent({
         }
 
         onMounted(() => {
-            handlePage(1, 10)
+            initData()
         })
+
+        const initData = () => {
+            pager.pageNo = Number(route.query?.page) || 1
+            handlePage(pager.pageNo, pager.pageSize)
+        }
 
         const handlePage = async (pageNo: number, pageSize: number) => {
             pager.pageSize = pageSize
@@ -78,6 +96,7 @@ export default defineComponent({
             ...toRefs(state),
             ...toRefs(pager),
             bannerImgUrl,
+            initData,
             handlePage
         }
     }
