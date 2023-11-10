@@ -1,11 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
-<<<<<<< HEAD
- * @LastEditTime: 2023-11-06 19:47:45
-=======
- * @LastEditTime: 2023-11-11 04:59:24
->>>>>>> 4b17abf... enhancement: 响应式优化
+ * @LastEditTime: 2023-11-11 05:34:55
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -19,7 +15,7 @@
 
         <a-row justify="center"
                class="home-content">
-            <a-col :xs="24"
+            <a-col :xs="22"
                    :sm="22"
                    :md="20"
                    :lg="22"
@@ -59,7 +55,7 @@
                 </a-row>
             </a-col>
 
-            <a-col :xs="24"
+            <a-col :xs="22"
                    :sm="22"
                    :md="20"
                    :lg="22"
