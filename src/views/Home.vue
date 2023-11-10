@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-08 05:29:14
+ * @LastEditTime: 2023-11-11 04:59:24
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -15,10 +15,10 @@
 
         <a-row justify="center"
                class="home-content">
-            <a-col :xs="22"
-                   :sm="20"
-                   :md="17"
-                   :lg="20"
+            <a-col :xs="24"
+                   :sm="22"
+                   :md="20"
+                   :lg="22"
                    :xl="19"
                    :xxl="16"
                    class="home-box">
@@ -30,7 +30,7 @@
                 </div>
                 <a-row class="box-content"
                        justify="space-between"
-                       :gutter="[{ xs: 8, sm: 8, md: 24, xl: 24, xxl: 24 }, 20]">
+                       :gutter="[{ xs: 8, sm: 8, md: 24, lg:36, xl: 38, xxl: 50 }, 20]">
                     <a-col v-for="(item, index) in recentArticles"
                            :key="'dd' + index"
                            :xs="24"
@@ -58,17 +58,17 @@
             <a-col :xs="24"
                    :sm="22"
                    :md="20"
-                   :lg="20"
-                   :xl="19"
+                   :lg="22"
+                   :xl="20"
                    :xxl="16">
                 <a-row justify="center"
-                       :gutter="40">
-                    <a-col :xs="22"
+                       :gutter="{ md: 0, lg: 38, xl: 40, xxl: 50}">
+                    <a-col :xs="24"
                            :sm="22"
-                           :md="20"
+                           :md="24"
                            :lg="10"
-                           :xl="10"
-                           :xxl="10"
+                           :xl="9"
+                           :xxl="9"
                            class="home-box">
                         <div class="box-title">
                             <div class="title-content">
@@ -82,12 +82,10 @@
                                    :tags="tags"
                                    :count="count" />
                     </a-col>
-                    <a-col :xs="22"
-                           :sm="22"
-                           :md="20"
+                    <a-col :md="24"
                            :lg="14"
                            :xl="14"
-                           :xxl="14"
+                           :xxl="15"
                            class="home-box">
                         <div class="box-title">
                             <div class="title-content">

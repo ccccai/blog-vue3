@@ -52,4 +52,61 @@
             text-align: center;
         }
     }
+
+    @media screen and (max-width: 576px) {
+        padding: 20px;
+
+        .notes-list {
+            padding-left: 20px;
+
+            .list-year {
+                &::before {
+                    left: -29px;
+                }
+            }
+
+            .note-list-box {
+                height: 180px;
+                margin: 0;
+                padding: 10px 0;
+
+                &::before {
+                    left: -26px;
+                }
+            }
+
+            .list-box-info {
+                padding-bottom: 10px;
+
+                .list-desc {
+                    padding-left: 0;
+                    height: 160px;
+
+                    .desc-title {
+                        font-size: 14px;
+                        line-height: 22px;
+                        -webkit-line-clamp: 2;
+                        padding: 4px 0;
+                    }
+
+                    .desc-date,
+                    .desc-subtitle {
+                        font-size: 10px;
+                        line-height: 16px;
+                        padding: 4px 0;
+                    }
+
+                    .desc-text {
+                        padding-top: 4px;
+                        font-size: 10px;
+                        line-height: 18px;
+                    }
+                }
+            }
+        }
+
+        .pager-content {
+            padding-top: 10px;
+        }
+    }
 }

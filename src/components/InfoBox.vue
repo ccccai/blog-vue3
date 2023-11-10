@@ -1,5 +1,5 @@
 <template>
-    <a-row :gutter="[0, 20]"
+    <a-row :gutter="[0, { xs: 0, sm: 12, md: 20}]"
            class="blog-info-content"
            justify="space-around">
         <a-col :span="24"

@@ -85,7 +85,7 @@
                 height: 90px;
                 padding-left: 20px;
                 vertical-align: top;
-                max-width: calc(100% - 110px);
+                max-width: calc(100% - 90px);
 
                 .desc-date {
                     font-size: 12px;
@@ -154,6 +154,37 @@
 
         .ant-pagination {
             text-align: center;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        padding: 20px;
+        .timeline-list {
+            padding-left: 20px;
+
+            .list-year {
+                &::before {
+                    left: -29px;
+                }
+            }
+            .list-box {
+                &::before {
+                    left: -26px;
+                }
+            }
+            .list-box-info .list-desc {
+                padding-left: 14px;
+                .desc-title {
+                    font-size: 14px;
+                    line-height: 22px;
+                    -webkit-line-clamp: 2;
+                    padding: 4px 0;
+                }
+                .desc-date, .desc-subtitle {
+                    font-size: 10px;
+                    line-height: 18px;
+                }
+            }
         }
     }
 }
