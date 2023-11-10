@@ -48,7 +48,7 @@
                 </div>
             </a-col>
             <template v-else>
-                <a-col :xs="24"
+                <a-col :xs="22"
                        :sm="20"
                        :xxl="16">
                     <div class="article-box">
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </a-col>
-                <a-col :xs="24"
+                <a-col :xs="22"
                        :sm="20"
                        :xxl="16"
                        class="md-viewer-content">
