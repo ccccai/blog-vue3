@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-08 12:27:21
+ * @LastEditTime: 2023-11-10 23:15:23
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Tech.vue
@@ -34,7 +34,7 @@
                            :total="total"
                            :page-size="pageSize"
                            :page-no="pageNo"
-                           :on-page-change="handlePage" />
+                           :on-page-change="(page: number) => $router.push({name: 'Tech', query: { page }})" />
         </a-col>
     </a-row>
 </template> 
@@ -61,6 +61,18 @@ export default defineComponent({
         BlogInfo,
         TimelineList
     },
+    // 监听路由变化
+    watch: {
+        $route: {
+            handler(val, oldVal) {
+                if (val.query?.page !== oldVal.query?.page) {
+                    this.initData()
+                }
+            }
+            ,
+            deep: true
+        }
+    },
     setup() {
         const route = useRoute(),
             bannerImgUrl = ref<string>(''),
@@ -72,7 +84,7 @@ export default defineComponent({
             pager = reactive({
                 total: 0,
                 pageSize: 10,
-                pageNo: 1,
+                pageNo: Number(route.query?.page) || 1,
             }),
             userInfo = reactive({
                 nickName: '',
@@ -128,7 +140,8 @@ export default defineComponent({
         }
 
         const initData = () => {
-            handlePage(1, pager.pageSize, Number(route.query?.category), Number(route.query?.tag))
+            pager.pageNo = Number(route.query?.page) || 1
+            handlePage(pager.pageNo, pager.pageSize, Number(route.query?.category), Number(route.query?.tag))
         }
 
         onMounted(() => {
