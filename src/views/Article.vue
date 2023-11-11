@@ -6,7 +6,7 @@
     <div v-else
          class="article-content">
         <a-row justify="center">
-            <a-col :xs="24"
+            <a-col :xs="23"
                    :sm="22"
                    :xxl="20"
                    v-if="isCreate || editArticleId > 0">
@@ -117,7 +117,7 @@ export default defineComponent({
         const route = useRoute()
         const router = useRouter()
         const pageHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
-            contentHeight = innerHeight - 80 - 20,
+            contentHeight = innerHeight - 60,
             title = ref<string>(''),
             subTitle = ref<string>(''),
             desc = ref<string>(''),
