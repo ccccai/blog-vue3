@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-11 13:25:42
+ * @LastEditTime: 2023-11-11 14:21:07
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/vite.config.ts
@@ -23,7 +23,8 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            '@@': fileURLToPath(new URL('./public', import.meta.url)),
         }
     },
     css: {

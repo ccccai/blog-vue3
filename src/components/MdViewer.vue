@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-19 15:03:41
- * @LastEditTime: 2023-10-27 03:00:15
+ * @LastEditTime: 2023-11-11 21:45:49
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/MdViewer.vue
@@ -33,10 +33,10 @@ export const defaultOptions = {
     minHeight: '600px',
     language: 'zh_CN',
     plugins: [[codeSyntaxHighlight, { highlighter: Prism }]],
-    placeholder: '本编辑器支持Markdown编辑，左边编辑，右边预览。',
+    placeholder: '本编辑器支持Markdown编辑。',
     useCommandShortcut: false,
     usageStatistics: false,
-    hideModeSwitch: true,
+    hideModeSwitch: false,
 }
 export default defineComponent({
     name: "MdViewer",
@@ -51,7 +51,7 @@ export default defineComponent({
         },
         previewStyle: {
             type: String,
-            default: 'vertical'
+            default: 'tab'
         },
         height: {
             type: String,

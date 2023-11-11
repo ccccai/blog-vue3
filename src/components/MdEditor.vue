@@ -22,11 +22,7 @@ export default defineComponent({
         },
         previewStyle: {
             type: String,
-            default: 'vertical'
-        },
-        height: {
-            type: String,
-            default: '600px'
+            default: 'tab'
         },
         options: {
             type: Object,
