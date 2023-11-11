@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-11 05:27:42
+ * @LastEditTime: 2023-11-11 13:46:41
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -19,8 +19,8 @@
                    :sm="22"
                    :md="20"
                    :lg="22"
-                   :xl="19"
-                   :xxl="16"
+                   :xl="21"
+                   :xxl="18"
                    class="home-box">
                 <div class="box-title">
                     <div class="title-content">
@@ -59,16 +59,15 @@
                    :sm="22"
                    :md="20"
                    :lg="22"
-                   :xl="20"
-                   :xxl="16">
-                <a-row justify="center"
-                       :gutter="{ md: 0, lg: 38, xl: 40, xxl: 50}">
+                   :xl="21"
+                   :xxl="18">
+                <a-row justify="space-between"
+                       :gutter="0">
                     <a-col :xs="24"
-                           :sm="22"
+                           :sm="24"
                            :md="24"
                            :lg="10"
                            :xl="9"
-                           :xxl="9"
                            class="home-box">
                         <div class="box-title">
                             <div class="title-content">
@@ -83,9 +82,8 @@
                                    :count="count" />
                     </a-col>
                     <a-col :md="24"
-                           :lg="14"
+                           :lg="13"
                            :xl="14"
-                           :xxl="15"
                            class="home-box">
                         <div class="box-title">
                             <div class="title-content">

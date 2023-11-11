@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-10-25 21:44:44
+ * @LastEditTime: 2023-11-11 13:25:05
  * @LastEditors: caishiyin
  * @Description: 入口文件
  * @FilePath: /my-blog-vue3/src/main.ts
@@ -9,12 +9,16 @@
 import 'ant-design-vue/dist/reset.css'
 import './styles/index.less'
 import runningDog from '@/assets/images/chai_running.gif'
+import { initPx2rem } from './styles/remConfig'
 import { createApp, h } from 'vue'
 import { createPinia } from 'pinia'
 // 导入根组件
 import App from './App.vue'
 import router from './router'
 import Antd, { Spin } from 'ant-design-vue'
+
+//设置 rem
+initPx2rem()
 
 // 创建应用实例
 const app = createApp(App)

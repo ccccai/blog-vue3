@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-11 05:07:08
+ * @LastEditTime: 2023-11-11 13:50:40
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Tech.vue
@@ -11,10 +11,9 @@
                 :banner-url="bannerImgUrl" />
 
     <a-row justify="center"
-    :gutter="{ xs: 8, sm: 8, lg:28, xl: 40, xxl: 50 }"
+    :gutter="0"
            class="tech-content">
-        <a-col :xs="24"
-               :md="22"
+        <a-col :xs="22"
                :lg="9"
                :xl="8"
                :xxl="8"
@@ -26,9 +25,8 @@
                        :count="count"
                        @update-data="initData" />
         </a-col>
-        <a-col :xs="24"
-               :md="22"
-               :lg="14"
+        <a-col :xs="22"
+               :lg="12"
                :xl="12"
                :xxl="12"
                class="tech-right">
