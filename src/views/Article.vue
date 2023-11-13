@@ -65,10 +65,10 @@
                         </div>
                         <div v-show="data.coverUrl"
                              class="article-cover">
-                            <span class="img-border img-top-border" />
+                            <!-- <span class="img-border img-top-border" /> -->
                             <img-box class="article-img"
                                        :src="data.coverUrl" />
-                            <span class="img-border img-bottom-border" />
+                            <!-- <span class="img-border img-bottom-border" /> -->
                         </div>
                         <div v-show="desc"
                              class="desc-text">

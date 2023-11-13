@@ -1,14 +1,19 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-11-07 22:47:38
+ * @LastEditTime: 2023-11-13 15:51:45
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/ImgBox.vue
 -->
 <template>
-    <img :src="src"
-         :onerror="errorImg" />
+    <as-image class="as-image"
+              :class="{ 'as-image-heigher': isHeigher }"
+              :src="src">
+        <template #loading>
+            <div class="loading"></div>
+        </template>
+    </as-image>
 </template>
 <script setup lang="ts" name="ImageBox">
 import { ref } from "vue"
@@ -17,12 +22,35 @@ import errImage from '@/assets/images/error-image.png'
 const props = withDefaults(defineProps<{
     errSrc?: string,
     src: string,
+    isHeigher: boolean,
 }>(), {
     src: '',
-    errSrc: ''
+    errSrc: '',
+    isHeigher: false
 })
 
 const errorImg = ref<string>('this.src="' + (props.errSrc || errImage) + '"')
 
 </script>
-<style lang="less"></style>
+<style lang="less">
+.as-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .loading {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.as-image-heigher {
+    height: 100%;
+
+    &>img {
+        width: fit-content;
+        height: 100%;
+    }
+}
+</style>

@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:34:13
- * @LastEditTime: 2023-11-08 05:27:31
+ * @LastEditTime: 2023-11-13 07:24:07
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/NoteItem.vue
@@ -9,8 +9,9 @@
 <template>
     <router-link :to="`/article?id=${id}`"
                  class="note-list-box">
-        <div class="list-img"
-             :style="{ backgroundImage: `url(${cover})` }" />
+        <div class="list-img">
+            <img-box :src="cover" />
+        </div>
         <div class="list-desc">
             <div class="desc-title">{{ title }}</div>
             <div class="desc-subtitle">{{ subTitle }}</div>
@@ -29,6 +30,7 @@
 import { toRefs } from 'vue'
 import dayjs from '@/assets/dayjs'
 import type { ArticleProps } from '@/types'
+import ImgBox from '@/components/ImgBox.vue'
 
 const props = withDefaults(defineProps<{
     data?: ArticleProps,

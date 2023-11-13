@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-11 13:46:41
+ * @LastEditTime: 2023-11-13 15:14:23
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
@@ -30,7 +30,7 @@
                 </div>
                 <a-row class="box-content"
                        justify="space-between"
-                       :gutter="[{ xs: 8, sm: 8, md: 24, lg:36, xl: 38, xxl: 50 }, 20]">
+                       :gutter="[{ xs: 8, sm: 8, md: 24, lg: 36, xl: 38, xxl: 50 }, 20]">
                     <a-col v-for="(item, index) in recentArticles"
                            :key="'dd' + index"
                            :xs="24"
@@ -43,7 +43,10 @@
                             <a-card class="card-item">
                                 <template #cover>
                                     <div class="cover-img"
-                                         :style="{ height: '200px', backgroundImage: `url(${item.cover})` }" />
+                                         :style="{ height: '200px' }">
+                                        <img-box class="article-img"
+                                                 :src="item.cover" />
+                                    </div>
                                 </template>
                                 <a-card-meta class="box-bottom-title"
                                              :title="item.title">
@@ -105,7 +108,10 @@
                                     <a-card class="card-item">
                                         <template #cover>
                                             <div class="cover-img"
-                                                 :style="{ height: '250px', backgroundImage: `url(${item.cover})` }" />
+                                                 :style="{ height: '250px' }">
+                                                <img-box class="article-img"
+                                                         :src="item.cover" />
+                                            </div>
                                         </template>
                                         <div class="box-description">
                                             <div class="tag-content">
@@ -142,6 +148,7 @@ import { type IResponseData } from '@/types'
 import { fetchHomeData } from '@/api'
 import { navList } from "@/assets/settings"
 import BlogInfo from '@/components/InfoBox.vue'
+import ImgBox from '@/components/ImgBox.vue'
 import dayjs from '@/assets/dayjs'
 import type { CountProps, ItemProps, ArticleProps } from '@/types'
 

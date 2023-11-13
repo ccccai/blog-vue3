@@ -8,9 +8,10 @@
                     <div class="list-box-info">
                         <template v-for="(article) in item.list">
                             <router-link :to="`/article?id=${article.id}`"
-                               class="list-box">
-                                <div class="list-img"
-                                     :style="{ backgroundImage: `url(${article.cover})` }" />
+                                         class="list-box">
+                                <div class="list-img">
+                                    <img-box :src="article.cover" />
+                                </div>
                                 <div class="list-desc">
                                     <div class="desc-date">
                                         <a-avatar size="small"
@@ -43,6 +44,7 @@
 <script setup lang="ts" name='TimelineList'>
 import dayjs from '@/assets/dayjs'
 import type { ArticleListProps } from '@/types'
+import ImgBox from '@/components/ImgBox.vue'
 
 const props = withDefaults(defineProps<{
     list?: ArticleListProps[],
@@ -57,7 +59,7 @@ const props = withDefaults(defineProps<{
     pageSize: 10,
     pageNo: 1,
     bannerUrl: '',
-    onPageChange: () => {},
+    onPageChange: () => { },
 })
 
 </script>

@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-07 10:31:35
+ * @LastEditTime: 2023-11-13 15:46:21
  * @LastEditors: caishiyin
  * @Description: 根组件模板
  * @FilePath: /my-blog-vue3/src/App.vue
@@ -33,28 +33,35 @@ import { useRoute } from 'vue-router'
 import zhCN from "ant-design-vue/es/locale/zh_CN"
 import customTheme from '@/styles/theme'
 import { storeToRefs } from 'pinia'
-import { useNavStore } from "@/stores/nav"
+import { useNavStore, useScreenStore } from "@/stores"
 import { navList } from "@/assets/settings"
+import { debounce } from "@/assets/utils"
 import { ConfigProvider } from "ant-design-vue"
 import HeaderNav from '@/components/HeaderNav.vue'
 import FooterBox from '@/components/FooterBox.vue'
 import Loading from '@/components/Loading.vue'
 
 
-const preloadImg = (imgs: Array<any>) => {
-    const images = []
-    for (let i = 0; i < imgs.length; i++) {
-        images[i] = new Image()
-        images[i].src = imgs[i]
-        console.log('load image...')
-    }
+// const preloadImg: Function = (imgs: Array<any>) => {
+//     const images = []
+//     for (let i = 0; i < imgs.length; i++) {
+//         images[i] = new Image()
+//         images[i].src = imgs[i]
+//         console.log('load image...')
+//     }
+// }
+
+const handleScreen: Function = () => {
+    const clientHeight = document.documentElement.clientHeight,
+        clientWidth = document.documentElement.clientWidth
+
+    useScreenStore().$patch({
+        clientHeight,
+        clientWidth,
+        isHigher: clientHeight >= clientWidth,
+    })
 }
 
-// 图片预加载
-window.addEventListener('load', async () => {
-    const bannerImgs = navList.map((item: any) => item.bannerImgUrl)
-    await preloadImg(bannerImgs)
-})
 export default defineComponent({
     components: {
         [ConfigProvider.name]: ConfigProvider,
@@ -78,6 +85,16 @@ export default defineComponent({
 
             activeNav.value = hasCurrent ? currentNavIndex : -1
         }
+
+        window.addEventListener('load', async () => {
+            handleScreen()
+            // const bannerImgs = navList.map((item: any) => item.bannerImgUrl)
+            // await preloadImg(bannerImgs)
+        })
+
+        window.addEventListener('resize', async () => {
+            debounce(handleScreen())
+        })
 
         onMounted(() => {
             onSetNavIndex()
