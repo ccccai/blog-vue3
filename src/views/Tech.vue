@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-11 13:57:17
+ * @LastEditTime: 2023-11-13 17:57:00
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Tech.vue
@@ -11,7 +11,7 @@
                 :banner-url="bannerImgUrl" />
 
     <a-row justify="center"
-    :gutter="0"
+           :gutter="0"
            class="tech-content">
         <a-col :xs="22"
                :lg="9"
@@ -33,7 +33,7 @@
                            :total="total"
                            :page-size="pageSize"
                            :page-no="pageNo"
-                           :on-page-change="(page: number) => $router.push({name: 'Tech', query: { page }})" />
+                           :on-page-change="(page: number) => $router.push({ name: 'Tech', query: { page } })" />
         </a-col>
     </a-row>
 </template> 

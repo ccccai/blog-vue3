@@ -88,10 +88,15 @@
                         .ant-card-cover {
                             .cover-img {
                                 border-radius: 24px 24px 0 0;
-                                background-repeat: no-repeat;
-                                background-size: cover;
-                                background-position: center center;
-                                background-image: url('https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png');
+                                overflow: hidden;
+
+                                .as-image {
+                                    height: inherit;
+
+                                    &>img {
+                                        width: 100%;
+                                    }
+                                }
                             }
                         }
 

@@ -88,9 +88,9 @@
                                           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                           @change="(info: UploadChangeParam) => handleUploadChange(info, 'cover')">
                                     <img-box v-if="formState.coverUrl"
-                                         :src="formState.coverUrl"
-                                         :style="{ width: '100%' }"
-                                         alt="avatar" />
+                                             :src="formState.coverUrl"
+                                             :style="{ width: '100%' }"
+                                             alt="avatar" />
                                     <div v-else>
                                         <a-spin v-if="coverUpLoading"
                                                 size='large'
@@ -121,9 +121,9 @@
                                           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                           @change="(info: UploadChangeParam) => handleUploadChange(info, 'avatar')">
                                     <img-box v-if="formState.avatarUrl"
-                                         :src="formState.avatarUrl"
-                                         :style="{ width: '100%' }"
-                                         alt="avatar" />
+                                             :src="formState.avatarUrl"
+                                             :style="{ width: '100%' }"
+                                             alt="avatar" />
                                     <div v-else>
                                         <a-spin v-if="avatarUpLoading"
                                                 size='large'
@@ -168,8 +168,8 @@ const props = withDefaults(defineProps<{
     tagList?: ItemProps[],
     data?: PopFormState,
 }>(), {
-    handleOpen: () => {},
-    onConfirm: () => {},
+    handleOpen: () => { },
+    onConfirm: () => { },
     openPopcon: false,
     categoryList: () => [],
     tagList: () => [],
