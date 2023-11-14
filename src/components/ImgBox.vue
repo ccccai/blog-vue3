@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-11-13 15:51:45
+ * @LastEditTime: 2023-11-15 02:57:13
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/ImgBox.vue
@@ -37,7 +37,8 @@ const errorImg = ref<string>('this.src="' + (props.errSrc || errImage) + '"')
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: inherit;
+    height: inherit;
 
     .loading {
         width: 100%;
