@@ -13,6 +13,7 @@
         .as-image {
             align-items: flex-end;
             animation: backgroundWalkY 10s linear infinite alternate;
+            height: auto;
         }
 
         .as-image-heigher {
@@ -22,11 +23,11 @@
 
     @keyframes backgroundWalkY {
         0% {
-            transform: translate3d(0, 50px, 0);
+            transform: translate3d(0, 0px, 0);
         }
 
         100% {
-            transform: translate3d(0, -50px, 0);
+            transform: translate3d(0, 100px, 0);
         }
     }
 

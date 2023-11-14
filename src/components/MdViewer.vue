@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-19 15:03:41
- * @LastEditTime: 2023-11-11 21:45:49
+ * @LastEditTime: 2023-11-15 03:21:41
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/MdViewer.vue
@@ -26,17 +26,30 @@ export const editorEvents = [
     'blur',
     'keydown',
     'keyup',
-    'beforePreviewRender',
-    'beforeConvertWysiwygToMarkdown',
+    'beforePreviewRender', // 在使用html字符串渲染markdown预览之前的钩子函数
+    'beforeConvertWysiwygToMarkdown', // 在使用markdown文本将wysiwyg转换为markdown之前的钩子函数
 ]
 export const defaultOptions = {
     minHeight: '600px',
     language: 'zh_CN',
     plugins: [[codeSyntaxHighlight, { highlighter: Prism }]],
     placeholder: '本编辑器支持Markdown编辑。',
-    useCommandShortcut: false,
-    usageStatistics: false,
-    hideModeSwitch: false,
+    useCommandShortcut: true, // 是否使用键盘快捷键执行命令
+    usageStatistics: false, // 将主机名发送到Google Analytics
+    hideModeSwitch: true, // 隐藏模式切换选项卡栏
+    toolbarItems: [
+        ['heading', 'bold', 'italic', 'strike'],
+        ['hr', 'quote'],
+        ['ul', 'ol', 'task', 'indent', 'outdent'],
+        ['table', 'image', 'link'],
+        ['code', 'codeblock'],
+        // // Using Option: Customize the last button
+        // [{
+        //     el: createLastButton(),
+        //     command: 'bold',
+        //     tooltip: 'Custom Bold'
+        // }]
+    ]
 }
 export default defineComponent({
     name: "MdViewer",
@@ -47,7 +60,7 @@ export default defineComponent({
         },
         initialEditType: {
             type: String,
-            default: 'wysiwyg'
+            default: 'markdown'
         },
         previewStyle: {
             type: String,
