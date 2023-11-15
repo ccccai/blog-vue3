@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-13 16:07:35
+ * @LastEditTime: 2023-11-15 12:34:53
  * @LastEditors: caishiyin
  * @Description: 入口文件
  * @FilePath: /my-blog-vue3/src/main.ts
@@ -41,11 +41,9 @@ app.use(router)
 app.use(Antd)
 
 app.use(AsImage, {
-    quanlity: 0,
-    format: '',
     lazy: true,
     placeholderLazyOffset: '50px',
-    imageLazyOffset: '20px',
+    imageLazyOffset: '10px',
     duration: 2,
     progressive: true,
     imageUrlGenerator: imageUrlGeneratorFastly
