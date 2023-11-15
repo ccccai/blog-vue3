@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-11-15 02:57:13
+ * @LastEditTime: 2023-11-15 12:37:29
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/ImgBox.vue
@@ -50,7 +50,7 @@ const errorImg = ref<string>('this.src="' + (props.errSrc || errImage) + '"')
     height: 100%;
 
     &>img {
-        width: fit-content;
+        width: auto;
         height: 100%;
     }
 }
