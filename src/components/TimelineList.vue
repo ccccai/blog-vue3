@@ -6,11 +6,11 @@
                 <template v-if="item.list.length">
                     <div class="list-year">{{ item.date }}</div>
                     <div class="list-box-info">
-                        <template v-for="(article) in item.list">
+                        <template v-for="(article, index) in item.list">
                             <router-link :to="`/article/tech/${item.date}/${article.id}`"
                                          class="list-box">
                                 <div class="list-img">
-                                    <img-box :src="article.cover" />
+                                    <img-box :key="index" :src="article.cover" />
                                 </div>
                                 <div class="list-desc">
                                     <div class="desc-date">
