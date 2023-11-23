@@ -1,13 +1,14 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-11-15 12:37:29
+ * @LastEditTime: 2023-11-23 18:10:44
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/ImgBox.vue
 -->
 <template>
-    <as-image class="as-image"
+    <as-image v-show="src"
+              class="as-image"
               :class="{ 'as-image-heigher': isHeigher }"
               :src="src">
         <template #loading>
