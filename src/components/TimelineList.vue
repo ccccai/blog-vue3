@@ -10,7 +10,7 @@
                             <router-link :to="`/article?id=${article.id}`"
                                          class="list-box">
                                 <div class="list-img">
-                                    <img-box :src="article.cover" />
+                                    <img-box :key="article.id" :src.sync="article.cover" />
                                 </div>
                                 <div class="list-desc">
                                     <div class="desc-date">
