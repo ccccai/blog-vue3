@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-11 04:25:11
+ * @LastEditTime: 2023-11-23 19:07:25
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/About.vue
@@ -16,11 +16,10 @@
                :xxl="18"
                class="about">
             <p>CV工程师，目前无业游民状态；</p>
-            <p>因为没钱买服务器(bushi)，抠搜利用GitHub的域名，开发个博客，开拓个可以记录的地儿~</p>
             <p>之前的工作重心主要是VueJs，小程序，公众号H5页面等；</p>
             <p>空闲之余自学React和Ts，对NodeJs兴趣浓厚处于摸索阶段；</p>
             <p>喜欢码并致力于成为全栈工程师的普通打工人，喜欢阅读和学习带给自己的充实感。</p>
-            <p>坚信一步一个脚印，走稳必有所得!</p>
+            <p>都看到这里了，祝你今天开心~</p>
         </a-col>
     </a-row>
 </template>
