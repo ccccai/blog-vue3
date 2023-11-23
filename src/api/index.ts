@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-10 23:32:50
+ * @LastEditTime: 2023-11-23 18:39:44
  * @LastEditors: caishiyin
  * @Description:
  * @FilePath: /my-blog-vue3/src/api/index.ts
@@ -48,7 +48,7 @@ export const fetchFeaturedArticleList = () => {
             const modules = import.meta.glob([
                 `../../public/json/article/tech/2020/14.json`,
                 `../../public/json/article/tech/2019/11.json`,
-                `../../public/json/article/tech/2019/13.json`,
+                `../../public/json/article/tech/2020/24.json`,
             ], { as: 'raw', eager: true }),
                 list: Array<any> = []
 
