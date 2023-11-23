@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-23 16:49:20
+ * @LastEditTime: 2023-11-23 23:29:57
  * @LastEditors: caishiyin
  * @Description: 入口文件
  * @FilePath: /my-blog-vue3/src/main.ts
@@ -15,7 +15,26 @@ import { createPinia } from 'pinia'
 // 导入根组件
 import App from './App.vue'
 import router from './router'
-import Antd, { Spin } from 'ant-design-vue'
+import {
+    Spin,
+    Layout,
+    Row,
+    Col,
+    Drawer,
+    Avatar,
+    Pagination,
+    Popconfirm,
+    Form,
+    Radio,
+    DatePicker,
+    Input,
+    Select,
+    Upload,
+    Button,
+    FloatButton,
+    Card,
+    Tag
+} from 'ant-design-vue'
 
 // import LazyLoadDirective from '@/assets/lazyLoadDirective'
 import AsImage from '@awesome-image/image'
@@ -38,12 +57,31 @@ app.config.errorHandler = (err) => {
 
 app.use(createPinia())
 app.use(router)
-app.use(Antd)
+app.use(Layout)
+app.use(Row)
+app.use(Col)
+app.use(Drawer)
+app.use(Avatar)
+app.use(Pagination)
+app.use(Popconfirm)
+app.use(Form)
+app.use(Radio)
+app.use(DatePicker)
+app.use(Input)
+app.use(Select)
+app.use(Upload)
+app.use(Button)
+app.use(FloatButton)
+app.use(Card)
+app.use(Tag)
 
 app.use(AsImage, {
     lazy: true, // 是否启用懒加载
     progressive: true, // 是否启用渐进加载
-    imageUrlGenerator: imageUrlGeneratorFastly
+    imageUrlGenerator: imageUrlGeneratorFastly,
+    placeholderLazyOffset: '20px',
+    imageLazyOffset: '20px',
+    duration: 2
 })
 
 // 调用mount函数，将应用根组件的内容渲染在容器元素#app里面（容器元素自己将不会被视为应用的一部分）
