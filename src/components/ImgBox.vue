@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-11-23 18:10:44
+ * @LastEditTime: 2023-11-24 15:21:01
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/components/ImgBox.vue
@@ -17,8 +17,6 @@
     </as-image>
 </template>
 <script setup lang="ts" name="ImageBox">
-import { ref } from "vue"
-import errImage from '@/assets/images/error-image.png'
 
 const props = withDefaults(defineProps<{
     errSrc?: string,
@@ -29,8 +27,6 @@ const props = withDefaults(defineProps<{
     errSrc: '',
     isHeigher: false
 })
-
-const errorImg = ref<string>('this.src="' + (props.errSrc || errImage) + '"')
 
 </script>
 <style lang="less">

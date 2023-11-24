@@ -1,17 +1,16 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-13 17:56:35
+ * @LastEditTime: 2023-11-24 15:22:44
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: /my-blog-vue3/src/views/Home.vue
 -->
 <template>
     <base-layout class="home">
-        <div class="home-top-bg"
-             :style="{
-                 backgroundImage: `url(${topImgUrl})`,
-             }"></div>
+        <div class="home-top-bg">
+            <img-box :src="topImgUrl" />
+        </div>
 
         <a-row justify="center"
                class="home-content">
