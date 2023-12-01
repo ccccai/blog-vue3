@@ -1,40 +1,20 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-11-24 15:18:46
+ * @LastEditTime: 2023-12-01 10:50:56
  * @LastEditors: caishiyin
  * @Description: 入口文件
  * @FilePath: /my-blog-vue3/src/main.ts
  */
 import 'ant-design-vue/dist/reset.css'
 import './styles/index.less'
-import runningDog from '@/assets/images/chai_running.gif'
 import { initPx2rem } from './styles/remConfig'
-import { createApp, h } from 'vue'
+import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 // 导入根组件
 import App from './App.vue'
 import router from './router'
-import {
-    Spin,
-    Layout,
-    Row,
-    Col,
-    Drawer,
-    Avatar,
-    Pagination,
-    Popconfirm,
-    Form,
-    Radio,
-    DatePicker,
-    Input,
-    Select,
-    Upload,
-    Button,
-    FloatButton,
-    Card,
-    Tag
-} from 'ant-design-vue'
+import setupAntd from './plugins/ant'
 
 import AsImage from '@awesome-image/image'
 import '@awesome-image/image/dist/style.css'
@@ -46,33 +26,16 @@ initPx2rem()
 // 创建应用实例
 const app = createApp(App)
 
+app.use(router)
+
 // 错误处理器，用来捕获所有子组件上的错误
 app.config.errorHandler = (err) => {
     console.log('处理错误：', err)
 }
-
-Spin.setDefaultIndicator({
-    indicator: h('img', { class: 'spin-img', src: runningDog, alt: '加载中...' }),
-});
 app.use(createPinia())
-app.use(router)
-app.use(Layout)
-app.use(Row)
-app.use(Col)
-app.use(Drawer)
-app.use(Avatar)
-app.use(Pagination)
-app.use(Popconfirm)
-app.use(Form)
-app.use(Radio)
-app.use(DatePicker)
-app.use(Input)
-app.use(Select)
-app.use(Upload)
-app.use(Button)
-app.use(FloatButton)
-app.use(Card)
-app.use(Tag)
+
+// 按需引入组件
+setupAntd(app)
 
 app.use(AsImage, {
     lazy: true, // 是否启用懒加载
