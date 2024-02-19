@@ -1,17 +1,17 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-06 13:01:20
- * @LastEditTime: 2023-11-23 18:39:44
+ * @LastEditTime: 2024-02-19 11:46:42
  * @LastEditors: caishiyin
  * @Description:
- * @FilePath: /my-blog-vue3/src/api/index.ts
+ * @FilePath: \blog-vue3\src\api\index.ts
  */
 
 import { fetchGet, fetchPost, fetchJSON, showLoading, hideLoading } from './services'
 import { useArticleStore } from "@/stores/article"
 import { useNoteStore } from "@/stores/note"
 
-export const prefix = '/json/'
+export const prefix = `${import.meta.env.DEV ? '/public' : ''}/json/`
 
 export const fetchHomeData = async () =>
     await fetchGet({

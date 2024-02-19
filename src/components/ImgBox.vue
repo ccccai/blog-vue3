@@ -1,10 +1,10 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-11-24 15:21:01
+ * @LastEditTime: 2024-02-18 15:10:44
  * @LastEditors: caishiyin
  * @Description: 
- * @FilePath: /my-blog-vue3/src/components/ImgBox.vue
+ * @FilePath: \blog-vue3\src\components\ImgBox.vue
 -->
 <template>
     <as-image v-show="src"
@@ -21,7 +21,7 @@
 const props = withDefaults(defineProps<{
     errSrc?: string,
     src: string,
-    isHeigher: boolean,
+    isHeigher?: boolean,
 }>(), {
     src: '',
     errSrc: '',
