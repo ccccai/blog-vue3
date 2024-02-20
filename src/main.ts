@@ -1,10 +1,10 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2023-12-01 10:50:56
+ * @LastEditTime: 2024-02-20 11:57:12
  * @LastEditors: caishiyin
  * @Description: 入口文件
- * @FilePath: /my-blog-vue3/src/main.ts
+ * @FilePath: \blog-vue3\src\main.ts
  */
 import 'ant-design-vue/dist/reset.css'
 import './styles/index.less'
@@ -26,8 +26,6 @@ initPx2rem()
 // 创建应用实例
 const app = createApp(App)
 
-app.use(router)
-
 // 错误处理器，用来捕获所有子组件上的错误
 app.config.errorHandler = (err) => {
     console.log('处理错误：', err)
@@ -45,6 +43,9 @@ app.use(AsImage, {
     imageLazyOffset: '20px',
     duration: 2
 })
+
+
+app.use(router)
 
 // 调用mount函数，将应用根组件的内容渲染在容器元素#app里面（容器元素自己将不会被视为应用的一部分）
 app.mount('#app') // 必须始终在整个应用配置和资源注册完成后背调用
