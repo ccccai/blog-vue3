@@ -1,7 +1,7 @@
 /*
  * @Author: caishiyin
  * @Date: 2024-02-19 11:35:18
- * @LastEditTime: 2024-02-19 11:37:05
+ * @LastEditTime: 2024-02-20 16:57:18
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: \blog-vue3\dps.config.js
@@ -13,12 +13,13 @@ const dpsConfig = {
 		filepath: 'index.html',   // 生成骨架屏的存放页面，一般为项目的入口页面
 		injectSelector: '#app'  // 生成的骨架屏插入页面的节点
 	},
+  device: 'pc',
 	// header: {
 	// 	height: 40,
 	// 	background: '#1b9af4'
 	// },
 	// background: '#eee',
-	// animation: 'opacity 1s linear infinite;',
+	animation: 'opacity 1s linear infinite;',
 	// includeElement: function(node, draw) {
 		// 定制某个节点画出来的样子，带上return false
 		// if(node.id == 'ui-alert') {
@@ -42,10 +43,7 @@ const dpsConfig = {
 		// 自己处理生成的骨架屏
 		// fs.writeFileSync(filepath, html);
 		// console.log(html)
-	// },
-	init: function() {
-		// 生成骨架屏之前的操作，比如删除干扰节点
-	}
+	// }
 }
 
 module.exports = dpsConfig;
