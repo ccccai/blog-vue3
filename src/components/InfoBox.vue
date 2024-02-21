@@ -87,7 +87,7 @@
                     :key="`tags${index}`"
                     class="tags-list-item"
                     :class="{ 'active-tags-item': Number(tagId) === Number(tag?.id) }"
-                    :style="{ fontSize: getRendomFontSize(12, 20) }">
+                    :style="{ fontSize: getRendomFontSize(10, 18) }">
                     <span>{{ tag?.name }}</span>
                 </li>
             </ul>

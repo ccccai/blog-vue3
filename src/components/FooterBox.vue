@@ -1,10 +1,10 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 20:29:31
- * @LastEditTime: 2023-09-17 20:39:21
+ * @LastEditTime: 2024-02-21 11:35:48
  * @LastEditors: caishiyin
  * @Description: 
- * @FilePath: /my-blog-vue3/src/components/FooterBox.vue
+ * @FilePath: \blog-vue3\src\components\FooterBox.vue
 -->
 <template>
     <a-row justify="center"
@@ -23,7 +23,7 @@
             <div class="bottom-nav-middle">LOVE & PEACE</div>
             <div class="bottom-nav-bottom">
                 <a-col :span="24"
-                       class="bottom-right">@2019-2023 By Caishiyin</a-col>
+                       class="bottom-right">@2019-2024 By Caishiyin</a-col>
                 <a-col :span="24"
                        class="bottom-right"> Antd | TypeScript | Koa</a-col>
                 <a-col :span="24"
