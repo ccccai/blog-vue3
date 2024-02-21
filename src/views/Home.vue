@@ -1,7 +1,7 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-15 23:30:18
- * @LastEditTime: 2024-02-20 11:08:56
+ * @LastEditTime: 2024-02-21 10:13:16
  * @LastEditors: caishiyin
  * @Description: 
  * @FilePath: \blog-vue3\src\views\Home.vue
@@ -10,6 +10,7 @@
   <div class="home-top-bg"
        :style="{
          backgroundImage: `url(${topImgUrl})`,
+         backgroundColor: bannerBgColor,
        }"></div>
 
   <a-row justify="center"
@@ -150,9 +151,11 @@ import dayjs from '@/assets/dayjs'
 import type { CountProps, ItemProps, ArticleProps } from '@/types'
 
 const topImgUrl = ref<string>('')
-const navIndex = navList.findIndex(item => item.title_en === 'HOME')
+const bannerBgColor = ref<string>('')
+const navIndex = navList.findIndex(item => item.titleEN === 'HOME')
 if (navIndex > -1) {
   topImgUrl.value = navList[navIndex].bannerImgUrl
+  bannerBgColor.value = navList[navIndex].bgColor
 }
 
 interface stateProps {

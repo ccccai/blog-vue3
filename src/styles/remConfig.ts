@@ -1,14 +1,14 @@
 /*
  * @Author: caishiyin
  * @Date: 2023-11-11 12:52:07
- * @LastEditTime: 2023-11-11 13:24:31
+ * @LastEditTime: 2024-02-20 17:12:26
  * @LastEditors: caishiyin
  * @Description: px2rem配置文件
- * @FilePath: /my-blog-vue3/src/styles/remConfig.ts
+ * @FilePath: \blog-vue3\src\styles\remConfig.ts
  */
 
 // 基准大小
-export const baseFontSize = 14
+export const baseFontSize = 12
 
 // 设置 rem 函数
 export const setRem = () => {

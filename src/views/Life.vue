@@ -1,13 +1,14 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-11-11 05:34:41
+ * @LastEditTime: 2024-02-21 10:24:54
  * @LastEditors: caishiyin
  * @Description: 
- * @FilePath: /my-blog-vue3/src/views/Life.vue
+ * @FilePath: \blog-vue3\src\views\Life.vue
 -->
 <template>
     <banner-box title="Life Notes"
+                :bg-color="bannerBgColor"
                 :banner-url="bannerImgUrl" />
 
     <a-row justify="center">
@@ -58,6 +59,7 @@ export default defineComponent({
     setup() {
         const route = useRoute(),
             bannerImgUrl = ref<string>(''),
+            bannerBgColor = ref<string>(''),
             pager = reactive({
                 total: 0,
                 pageSize: 10,
@@ -68,9 +70,10 @@ export default defineComponent({
             articleList: []
         })
 
-        const navIndex = menuList.findIndex((item) => item.title_en === 'LIFE')
+        const navIndex = menuList.findIndex((item) => item.titleEN === 'LIFE')
         if (navIndex > -1) {
             bannerImgUrl.value = menuList[navIndex].bannerImgUrl
+            bannerBgColor.value = menuList[navIndex].bgColor
         }
 
         onMounted(() => {
@@ -100,6 +103,7 @@ export default defineComponent({
             ...toRefs(state),
             ...toRefs(pager),
             bannerImgUrl,
+            bannerBgColor,
             initData,
             handlePage
         }

@@ -33,7 +33,7 @@
                             class="menu-nav-item"
                             :class="{ 'active-nav-item': activeNav === index }"
                             :key="index">
-                            <span @click="$router.push(menu.url)">{{ menu.title_en }}</span>
+                            <span @click="$router.push(menu.url)">{{ menu.titleEN }}</span>
                         </li>
                     </ul>
                 </div>
@@ -73,7 +73,7 @@
                         class="menu-drawer-item"
                         @click="handleDrawer(false)">
                         <router-link class="logo"
-                                     :to="menu.url">{{ menu.title_en }}</router-link>
+                                     :to="menu.url">{{ menu.titleEN }}</router-link>
                     </li>
                 </ul>
             </a-drawer>

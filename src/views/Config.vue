@@ -1,13 +1,14 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:00:28
- * @LastEditTime: 2023-09-22 02:06:38
+ * @LastEditTime: 2024-02-21 10:16:47
  * @LastEditors: caishiyin
  * @Description: 
- * @FilePath: /my-blog-vue3/src/views/Config.vue
+ * @FilePath: \blog-vue3\src\views\Config.vue
 -->
 <template>
     <banner-box title="Config"
+                :bg-color="bannerBgColor"
                 :banner-url="bannerImgUrl" />
     <a-row justify="center">
         <a-col :xs="22"
@@ -27,6 +28,7 @@ import { ref } from 'vue'
 import BannerBox from '@/components/BannerBox.vue'
 import bannerImgUrl from '../assets/images/banner-config.jpg'
 
+const bannerBgColor = ref<string>('')
 
 </script>
 <style lang="less">

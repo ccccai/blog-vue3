@@ -8,6 +8,7 @@
 -->
 <template>
     <banner-box title="Technology"
+                :bg-color="bannerBgColor"
                 :banner-url="bannerImgUrl" />
 
     <a-row justify="center"
@@ -75,6 +76,7 @@ export default defineComponent({
     setup() {
         const route = useRoute(),
             bannerImgUrl = ref<string>(''),
+            bannerBgColor = ref<string>(''),
             state = reactive<stateProps>({
                 categories: [],
                 tags: [],
@@ -90,9 +92,10 @@ export default defineComponent({
                 description: '',
             })
 
-        const navIndex = menuList.findIndex(item => item.title_en === 'TECH')
+        const navIndex = menuList.findIndex(item => item.titleEN === 'TECH')
         if (navIndex > -1) {
             bannerImgUrl.value = menuList[navIndex].bannerImgUrl
+            bannerBgColor.value = menuList[navIndex].bgColor
         }
 
         const handlePage = async (pageNo: number, pageSize: number, categoryId: number, tagId: number) => {
@@ -154,6 +157,7 @@ export default defineComponent({
             ...toRefs(userInfo),
             ...toRefs(state),
             ...toRefs(pager),
+            bannerBgColor,
             bannerImgUrl,
             handlePage,
             initData

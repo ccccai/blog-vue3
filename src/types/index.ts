@@ -81,7 +81,7 @@ export interface ArticleListProps {
 }
 
 export interface NavProps {
-    title_en: string,
+    titleEN: string,
     url: string
 }
 

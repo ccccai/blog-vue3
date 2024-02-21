@@ -1,14 +1,14 @@
 <!--
  * @Author: caishiyin
  * @Date: 2023-09-17 21:12:37
- * @LastEditTime: 2023-11-13 17:57:51
+ * @LastEditTime: 2024-02-21 10:19:22
  * @LastEditors: caishiyin
  * @Description: 
- * @FilePath: /my-blog-vue3/src/components/BannerBox.vue
+ * @FilePath: \blog-vue3\src\components\BannerBox.vue
 -->
 <template>
     <div class="banner-content">
-        <div class="banner-img">
+        <div class="banner-img" :style="bgColor ? `background-color:${bgColor}` : ''">
             <img-box :src="bannerUrl" :is-heigher="useScreenStore().isHigher" />
         </div>
         <div class="banner-title">
@@ -23,8 +23,10 @@ import ImgBox from '@/components/ImgBox.vue'
 const props = withDefaults(defineProps<{
     title?: string,
     bannerUrl: string,
+    bgColor?: string,
 }>(), {
     title: '',
+    bgColor: '',
     default: ''
 })
 </script>
